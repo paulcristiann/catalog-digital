@@ -7,7 +7,7 @@ import java.net.Socket;
 public class Send {
     public Object send(Object o) {
 
-        int port = 3678;
+        int port = 2678;
         Object response = null;
         try {
             Socket client = new Socket("127.0.0.1", port);

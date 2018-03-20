@@ -17,10 +17,12 @@ public class LoginCheck {
     public void check() {
         int ok = 0;
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
 
-            Connection con = DriverManager.getConnection(
-                    "jdbc:oracle:thin:@109.101.226.44:1433:BDA", "admin", "");
+            Class.forName("com.mysql.jdbc.Driver");
+
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://tihenea.tk/catalog?" +
+                    "user=proiectmds&password=proiectmds123&verifyServerCertificate=true&useSSL=true");
 
 
             PreparedStatement updateToken = null;
@@ -28,7 +30,7 @@ public class LoginCheck {
             request.setToken("token");
 
             try {
-                updateToken = con.prepareStatement("update users set token = ? where username = ? AND password=? ");
+                updateToken = con.prepareStatement("update profesori set token = ? where nume = ? AND parola=? ");
                 updateToken.setString(1, request.getToken());
                 updateToken.setString(2, request.getUser());
                 updateToken.setString(3, request.getPassword());
