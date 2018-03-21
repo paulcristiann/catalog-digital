@@ -34,18 +34,24 @@ public class Client extends Application {
         }
     }
 
-    public boolean userLogging(String user, String password) {
+    public boolean userLogging(String user, String password, Boolean administrare) {
         Login l = new Login(user, password);
+        l.setAdministrare(administrare);
         Send s = new Send();
         Object o = s.send(l);
         loggedUser = (model.Login) o;
 
         if (loggedUser.isLogged()) {
             System.out.println(loggedUser.getToken());
-            openCatalog();
+            if (loggedUser.getAdministrare()) {
+                openCatalog();
+            } else {
+                openAdministrare();
+            }
+
             return true;
         } else {
-            loggedUser=null;
+            loggedUser = null;
             return false;
         }
     }
@@ -53,6 +59,17 @@ public class Client extends Application {
     void userLogout() {
         loggedUser = null;
         openLogin();
+    }
+
+    private void openAdministrare() {
+
+        try {
+            AdministrareController admin = (AdministrareController) replaceSceneContent("Administrare.fxml");
+            admin.setApp(this);
+            stage.setFullScreen(true);
+        } catch (Exception ex) {
+            System.out.println("boom");
+        }
     }
 
     private void openCatalog() {

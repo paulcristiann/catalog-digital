@@ -6,6 +6,7 @@ public class Login implements Serializable {
     private String user;
     private String password;
     private String token;
+    private Boolean administrare;
 
     public String getToken() {
         return token;
@@ -16,10 +17,13 @@ public class Login implements Serializable {
     }
 
     private Boolean logged;
-    public Login(){}
-    public Login(String nume, String password){
-        this.user =nume;
-        this.password=password;
+
+    public Login() {
+    }
+
+    public Login(String nume, String password) {
+        this.user = nume;
+        this.password = password;
     }
 
     public String getUser() {
@@ -45,7 +49,16 @@ public class Login implements Serializable {
     public void setLogged(Boolean logged) {
         this.logged = logged;
     }
-    public Boolean isLogged(){
+
+    public Boolean isLogged() {
         return logged;
+    }
+
+    public Boolean getAdministrare() {
+        return administrare;
+    }
+
+    public void setAdministrare(Boolean administrare) {
+        this.administrare = administrare;
     }
 }
