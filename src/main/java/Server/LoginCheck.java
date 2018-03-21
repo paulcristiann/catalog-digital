@@ -34,7 +34,6 @@ public class LoginCheck {
         String sql = "update " +
                 (request.getAdministrare() ? "administrare" : "profesori")
                 + " set token = ? where nume = ? AND parola=? ";
-        System.out.println(sql);
 
         try {
             PreparedStatement query = con.prepareStatement(sql);

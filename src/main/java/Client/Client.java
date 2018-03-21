@@ -64,31 +64,31 @@ public class Client extends Application {
     private void openAdministrare() {
 
         try {
-            AdministrareController admin = (AdministrareController) replaceSceneContent("Administrare.fxml");
+            AdministrareController admin = (AdministrareController) replaceSceneContent("/Client/Administrare.fxml");
             admin.setApp(this);
             stage.setFullScreen(true);
         } catch (Exception ex) {
-            System.out.println("boom");
+            System.out.println(ex);
         }
     }
 
     private void openCatalog() {
 
         try {
-            CatalogController catalog = (CatalogController) replaceSceneContent("Catalog.fxml");
+            CatalogController catalog = (CatalogController) replaceSceneContent("/Client/Catalog.fxml");
             catalog.setApp(this);
             stage.setFullScreen(true);
         } catch (Exception ex) {
-            System.out.println("boom");
+            System.out.println(ex);
         }
     }
 
     private void openLogin() {
         try {
-            LoginController login = (LoginController) replaceSceneContent("Login.fxml");
+            LoginController login = (LoginController) replaceSceneContent("/Client/Login.fxml");
             login.setApp(this);
         } catch (Exception ex) {
-            System.out.println("boom");
+            System.out.println(ex);
         }
     }
 
