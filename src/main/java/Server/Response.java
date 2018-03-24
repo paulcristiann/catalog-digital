@@ -1,6 +1,8 @@
 package Server;
 
 import model.Login;
+import model.Profesor;
+import model.Profesori;
 
 /**
  *
@@ -20,11 +22,16 @@ public class Response {
         switch (requestType) {
 
             case "class model.Login":
-                Login l =  (Login)request;
+                Login l = (Login) request;
                 LoginCheck lc = new LoginCheck(l);
                 lc.check();
                 return l;
-
+            case "class model.Profesori":
+                Profesori p = (Profesori) request;
+                p.setProfesori(new ProfesoriController().getProfesori());
+                return p;
+            case "class model.Profesor":
+                return new ProfesoriController().exec((Profesor) request);
             default:
                 return "Cerere neidentificata";
 
