@@ -3,22 +3,24 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" pickOnBounds="false" xmlns="http://javafx.com/javafx/8.0.121"
-            fx:controller="Client.controller.AdministrareController">
+<AnchorPane pickOnBounds="false" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.AdministrareController">
     <children>
-        <FlowPane pickOnBounds="false" prefHeight="774.0" prefWidth="1360.0" prefWrapLength="1600.0"
-                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                  AnchorPane.topAnchor="0.0">
+        <FlowPane pickOnBounds="false" prefHeight="774.0" prefWidth="1360.0" prefWrapLength="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <TabPane minHeight="400.0" minWidth="600.0" prefHeight="780.0" prefWidth="1360.0"
-                         tabClosingPolicy="UNAVAILABLE">
+                <TabPane minHeight="400.0" minWidth="600.0" prefHeight="780.0" prefWidth="1360.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="Profesori">
                             <content>
-                                <fx:include fx:id="fooTabPage" source="Profesori.fxml"/>
+                                <fx:include fx:id="fooTabPage" source="Profesori.fxml" />
                             </content>
                         </Tab>
-                        <Tab onSelectionChanged="#logout" text="Logout"/>
+                        <Tab text="Materii">
+                            <content>
+                                <fx:include fx:id="tabMaterii" source="Materii.fxml" />
+                            </content>
+                        </Tab>
+                        <Tab onSelectionChanged="#logout" text="Logout" />
+
                     </tabs>
                 </TabPane>
             </children>

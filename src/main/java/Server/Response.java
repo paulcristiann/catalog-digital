@@ -1,6 +1,7 @@
 package Server;
 
 import model.Login;
+import model.Materie;
 import model.Profesor;
 import model.Profesori;
 
@@ -32,6 +33,8 @@ public class Response {
                 return p;
             case "class model.Profesor":
                 return new ProfesoriController().exec((Profesor) request);
+            case "class model.Materie":
+                return new MaterieController().exec((Materie)request);
             default:
                 return "Cerere neidentificata";
 
