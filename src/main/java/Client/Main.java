@@ -4,13 +4,10 @@ import Client.controller.AdministrareController;
 import Client.controller.CatalogController;
 import Client.controller.LoginController;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Login;
@@ -21,16 +18,6 @@ import java.io.InputStream;
 public class Main extends Application {
 
     private static Stage stage;
-    EventHandler esc = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent event) {
-            if (event.getCode().equals(KeyCode.ESCAPE)) {
-                stage.setHeight(600);
-                stage.setWidth(400);
-            }
-            event.consume();
-        }
-    };
     private Login loggedUser;
     private Scene scene = null;
 
@@ -69,7 +56,6 @@ public class Main extends Application {
             } else {
                 openCatalog();
             }
-            scene.addEventFilter(KeyEvent.KEY_PRESSED, esc);
             return true;
         } else {
             loggedUser = null;
@@ -105,8 +91,6 @@ public class Main extends Application {
     }
 
     private void openLogin() {
-        if (scene != null)
-            scene.removeEventHandler(KeyEvent.KEY_PRESSED, esc);
         try {
             LoginController login = (LoginController) replaceSceneContent("/Client/view/Login.fxml");
             login.setApp(this);
