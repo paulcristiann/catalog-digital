@@ -10,8 +10,12 @@ public class Profesor implements Serializable {
     private String parola;
 
     private int id;
+    public enum Actiuni {create,read,update,delete};
+
     private Actiuni actiune;
 
+    public Profesor() {
+    }
 
     private String eroare = "";
 
@@ -101,5 +105,5 @@ public class Profesor implements Serializable {
         this.parola = parola;
     }
 
-    public enum Actiuni {update, delete, save}
+
 }

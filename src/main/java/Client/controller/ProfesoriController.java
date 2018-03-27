@@ -10,9 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.Profesor;
-import model.Profesori;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ProfesoriController implements Initializable {
@@ -64,10 +64,10 @@ public class ProfesoriController implements Initializable {
         nume.setCellValueFactory(new PropertyValueFactory<Profesor, String>("nume"));
         prenume.setCellValueFactory(new PropertyValueFactory<Profesor, String>("prenume"));
         email.setCellValueFactory(new PropertyValueFactory<Profesor, String>("email"));
-        Profesori p = new Profesori();
-        p = (Profesori) new Send().send(p);
+        Profesor p = new Profesor();
+        p.setActiune(Profesor.Actiuni.read);
 
-        data = FXCollections.observableArrayList(p.getProfesori());
+        data = FXCollections.observableArrayList((ArrayList<Profesor>)new Send().send(p));
         table.setItems(data);
 
     }
@@ -76,7 +76,7 @@ public class ProfesoriController implements Initializable {
     private void add(ActionEvent event) {
         mesaj.setText("");
         Profesor p = new Profesor(fNume.getText(), fPrenume.getText(), fEmail.getText(), fParola.getText());
-        p.setActiune(Profesor.Actiuni.save);
+        p.setActiune(Profesor.Actiuni.create);
         p = (Profesor) new Send().send(p);
         if (p.getEroare().equals("")) {
             data.add(p);

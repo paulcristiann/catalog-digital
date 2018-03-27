@@ -3,7 +3,6 @@ package Server;
 import model.Login;
 import model.Materie;
 import model.Profesor;
-import model.Profesori;
 
 /**
  *
@@ -27,10 +26,6 @@ public class Response {
                 LoginCheck lc = new LoginCheck(l);
                 lc.check();
                 return l;
-            case "class model.Profesori":
-                Profesori p = (Profesori) request;
-                p.setProfesori(new ProfesoriController().getProfesori());
-                return p;
             case "class model.Profesor":
                 return new ProfesoriController().exec((Profesor) request);
             case "class model.Materie":

@@ -11,38 +11,32 @@ import static Server.db.getCon;
 public class ProfesoriController {
 
 
-    public ArrayList<Profesor> getProfesori() {
-        ArrayList<Profesor> arr = new ArrayList<Profesor>();
-        int ok = 0;
-        Connection con = getCon();
-
-
-        String sql = "SELECT id,nume,prenume,email from profesori";
-
-        try {
-
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-
-            while (rs.next()) {
-                arr.add(new Profesor(
-                        rs.getString("nume"),
-                        rs.getString("prenume"),
-                        rs.getString("email"),
-                        rs.getInt("id")));
-            }
-            con.close();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return arr;
-    }
-
-
-    public Profesor exec(Profesor p) {
+    public Object exec(Profesor p) {
         Connection con = getCon();
         String sql;
         switch (p.getActiune()) {
+            case read:
+                ArrayList<Profesor> arr = new ArrayList<Profesor>();
+                int ok = 0;
+                sql = "SELECT id,nume,prenume,email from profesori";
+
+                try {
+
+                    Statement st = con.createStatement();
+                    ResultSet rs = st.executeQuery(sql);
+
+                    while (rs.next()) {
+                        arr.add(new Profesor(
+                                rs.getString("nume"),
+                                rs.getString("prenume"),
+                                rs.getString("email"),
+                                rs.getInt("id")));
+                    }
+                    con.close();
+                } catch (SQLException e) {
+                    System.out.println(e);
+                }
+                return arr;
             case delete:
                 sql = "DELETE FROM profesori where id = ?";
                 try {
@@ -57,7 +51,7 @@ public class ProfesoriController {
                     System.out.println(e);
                 }
                 break;
-            case save:
+            case create:
                 sql = "INSERT INTO profesori (nume,prenume,email,parola) VALUES (?,?,?,?)";
                 try {
                     PreparedStatement query = con.prepareStatement(sql);
