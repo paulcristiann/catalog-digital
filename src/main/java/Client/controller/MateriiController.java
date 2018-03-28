@@ -15,7 +15,7 @@ import javafx.scene.input.MouseEvent;
 import model.Materie;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MateriiController implements Initializable {
@@ -40,7 +40,7 @@ public class MateriiController implements Initializable {
         Materie obj = table.getSelectionModel().selectedItemProperty().get();
         if (obj != null) {
             inEditare = obj;
-            fMaterie.setText(obj.getMaterie());
+            fMaterie.setText(obj.getNume());
         }
     }
 
@@ -48,12 +48,11 @@ public class MateriiController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
 
-        materie.setCellValueFactory(new PropertyValueFactory<Materie, String>("materie"));
+        materie.setCellValueFactory(new PropertyValueFactory<Materie, String>("nume"));
 
         Materie m = new Materie();
         m.setActiune(Materie.Actiuni.read);
-
-        data = FXCollections.observableArrayList((ArrayList<Materie>) new Send().send(m));
+        data = FXCollections.observableArrayList((List<Materie>) new Send().send(m));
         table.setItems(data);
 
     }

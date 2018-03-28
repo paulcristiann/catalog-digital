@@ -1,78 +1,60 @@
 package Server;
 
 import model.Profesor;
+import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 import static Server.LoginUtil.parola;
 import static Server.db.getCon;
 
 public class ProfesoriController {
 
-
     public Object exec(Profesor p) {
         Connection con = getCon();
-        String sql;
-        switch (p.getActiune()) {
-            case read:
-                ArrayList<Profesor> arr = new ArrayList<Profesor>();
-                int ok = 0;
-                sql = "SELECT id,nume,prenume,email from profesori";
+        QueryRunner run = new QueryRunner();
 
-                try {
+        try {
+            switch (p.getActiune()) {
+                case read:
+                    List<Profesor> result = run.query(con,
+                            "SELECT id,nume,prenume,email from profesori",
+                            new BeanListHandler<Profesor>(Profesor.class));
 
-                    Statement st = con.createStatement();
-                    ResultSet rs = st.executeQuery(sql);
+                    return result;
 
-                    while (rs.next()) {
-                        arr.add(new Profesor(
-                                rs.getString("nume"),
-                                rs.getString("prenume"),
-                                rs.getString("email"),
-                                rs.getInt("id")));
-                    }
-                    con.close();
-                } catch (SQLException e) {
-                    System.out.println(e);
-                }
-                return arr;
-            case delete:
-                sql = "DELETE FROM profesori where id = ?";
-                try {
-                    PreparedStatement query = con.prepareStatement(sql);
-                    query.setInt(1, p.getId());
-
-                    if (query.executeUpdate() != 1) {
+                case delete:
+                    if (run.update(con,"DELETE FROM profesori where id = ?", p.getId()) != 1)
                         p.setEroare("A aparut o eroare");
-                    }
-                    con.close();
-                } catch (SQLException e) {
-                    System.out.println(e);
-                }
-                break;
-            case create:
-                sql = "INSERT INTO profesori (nume,prenume,email,parola) VALUES (?,?,?,?)";
-                try {
-                    PreparedStatement query = con.prepareStatement(sql);
-                    query.setString(1, p.getNume());
-                    query.setString(2, p.getNume());
-                    query.setString(3, p.getNume());
-                    query.setString(4, parola(p.getParola()));
 
-                    if (query.executeUpdate() != 1) {
+                    break;
+                case create:
+                    if (run.update(con,"INSERT INTO profesori (nume,prenume,email,parola) VALUES (?,?,?,?)",
+                            p.getNume(), p.getPrenume(), p.getEmail(), parola(p.getParola())) != 1)
                         p.setEroare("A aparut o eroare");
-                    }
-                    con.close();
-                } catch (SQLException e) {
-                    System.out.println(e);
-                }
+                    else
+                        p = run.query(con, "SELECT id,nume,prenume,email FROM profesori WHERE email= ? ",
+                                new BeanHandler<Profesor>(Profesor.class),
+                                p.getEmail());
 
-                break;
-            case update:
-                break;
+                    break;
+                case update:
+                    if (run.update(con,"UPDATE profesori SET nume= ?,prenume = ?,email =  ?,parola= ? WHERE id = ?",
+                            p.getNume(), p.getPrenume(), p.getEmail(), parola(p.getParola()), p.getId()) != 1)
+                        p.setEroare("A aparut o eroare");
+
+                    break;
+            }
+            DbUtils.close(con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            p.setEroare("MySQL err");
         }
-        System.out.println(p.getNume());
         return p;
     }
 }

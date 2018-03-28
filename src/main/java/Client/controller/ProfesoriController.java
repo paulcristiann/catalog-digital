@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import model.Profesor;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProfesoriController implements Initializable {
@@ -67,7 +67,7 @@ public class ProfesoriController implements Initializable {
         Profesor p = new Profesor();
         p.setActiune(Profesor.Actiuni.read);
 
-        data = FXCollections.observableArrayList((ArrayList<Profesor>)new Send().send(p));
+        data = FXCollections.observableArrayList((List<Profesor>)new Send().send(p));
         table.setItems(data);
 
     }
