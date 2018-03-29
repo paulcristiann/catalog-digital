@@ -3,6 +3,7 @@ package Server;
 import model.Materie;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.Connection;
@@ -20,9 +21,15 @@ public class MaterieController {
             switch (m.getActiune()) {
 
                 case create:
-                    if (run.update(con,"INSERT INTO materii (nume) VALUES (?)",
+                    if (m.getNume().length() < 3)
+                        m.setEroare("Numele materiei trebuie sa contina minim 3 caractere");
+                    else if (run.update(con, "INSERT INTO materii (nume) VALUES (?)",
                             m.getNume()) != 1)
                         m.setEroare("A aparut o eroare");
+                    else
+                        m = run.query(con, "SELECT id,nume FROM materii WHERE nume= ? ",
+                                new BeanHandler<Materie>(Materie.class),
+                                m.getNume());
 
                     break;
                 case read:
@@ -33,7 +40,9 @@ public class MaterieController {
                     return result;
 
                 case update:
-                    if (run.update(con, "UPDATE materii set nume=? where id=?",
+                    if (m.getNume().length() < 3)
+                        m.setEroare("Numele materiei trebuie sa contina minim 3 caractere");
+                    else if (run.update(con, "UPDATE materii set nume=? where id=?",
                             m.getNume(), m.getId()) != 1)
                         m.setEroare("A aparut o eroare");
 
@@ -46,8 +55,11 @@ public class MaterieController {
             }
             DbUtils.close(con);
         } catch (SQLException e) {
-            e.printStackTrace();
-            m.setEroare("MySQL err");
+            // Mysql error Duplicate entry
+            if (e.getErrorCode() == 1062)
+                m.setEroare("Numele materiei trebuie sa fie unic");
+            else
+                m.setEroare("MySQL err");
         }
         return m;
     }

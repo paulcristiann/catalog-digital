@@ -22,7 +22,7 @@
                         <Button fx:id="button" layoutX="137.0" layoutY="15.0" onAction="#add" text="Add" AnchorPane.topAnchor="15.0" />
                         <Button layoutX="199.0" layoutY="15.0" mnemonicParsing="false" onAction="#update" text="Save" AnchorPane.topAnchor="15.0" />
                         <Button layoutX="262.0" layoutY="15.0" mnemonicParsing="false" onAction="#delete" text="Delete" AnchorPane.topAnchor="15.0" />
-                        <Label fx:id="mesaj" layoutX="22.0" layoutY="59.0" prefHeight="35.0" prefWidth="182.0" />
+                        <Label fx:id="mesaj" layoutX="22.0" layoutY="59.0" prefHeight="35.0" prefWidth="414.0" />
                     </children>
 
                 </AnchorPane>
