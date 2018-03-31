@@ -10,6 +10,12 @@ public class Profesor implements Serializable {
     private String parola;
 
     private int id;
+
+    @Override
+    public String toString() {
+        return nume + " " + prenume;
+    }
+
     public enum Actiuni {create,read,update,delete};
 
     private Actiuni actiune;
