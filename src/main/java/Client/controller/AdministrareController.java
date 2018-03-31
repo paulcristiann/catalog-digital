@@ -1,5 +1,6 @@
-package Client;
+package Client.controller;
 
+import Client.Main;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -7,15 +8,15 @@ import java.util.ResourceBundle;
 
 public class AdministrareController implements Initializable {
 
-    private Client client;
+    private Main main;
 
 
-    public void setApp(Client application) {
-        this.client = application;
+    public void setApp(Main application) {
+        this.main = application;
     }
 
     public void logout() {
-        client.userLogout();
+        main.userLogout();
     }
 
     @Override

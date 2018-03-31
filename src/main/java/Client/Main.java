@@ -1,5 +1,8 @@
 package Client;
 
+import Client.controller.AdministrareController;
+import Client.controller.CatalogController;
+import Client.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,13 +15,14 @@ import model.Login;
 import java.io.InputStream;
 
 
-public class Client extends Application {
+public class Main extends Application {
 
-    private Stage stage;
+    private static Stage stage;
     private Login loggedUser;
+    private Scene scene = null;
 
-    public static void main(String[] args) {
-        Application.launch(Client.class);
+    public static Stage getStage() {
+        return stage;
     }
 
     @Override
@@ -34,6 +38,10 @@ public class Client extends Application {
         }
     }
 
+    public static void main(String[] args) {
+        Application.launch(Main.class);
+    }
+
     public boolean userLogging(String user, String password, Boolean administrare) {
         Login l = new Login(user, password);
         l.setAdministrare(administrare);
@@ -44,11 +52,10 @@ public class Client extends Application {
         if (loggedUser.isLogged()) {
             System.out.println(loggedUser.getToken());
             if (loggedUser.getAdministrare()) {
-                openCatalog();
-            } else {
                 openAdministrare();
+            } else {
+                openCatalog();
             }
-
             return true;
         } else {
             loggedUser = null;
@@ -56,7 +63,7 @@ public class Client extends Application {
         }
     }
 
-    void userLogout() {
+    public void userLogout() {
         loggedUser = null;
         openLogin();
     }
@@ -64,31 +71,31 @@ public class Client extends Application {
     private void openAdministrare() {
 
         try {
-            AdministrareController admin = (AdministrareController) replaceSceneContent("Administrare.fxml");
+            AdministrareController admin = (AdministrareController) replaceSceneContent("/Client/view/Administrare.fxml");
             admin.setApp(this);
             stage.setFullScreen(true);
         } catch (Exception ex) {
-            System.out.println("boom");
+            System.out.println(ex);
         }
     }
 
     private void openCatalog() {
 
         try {
-            CatalogController catalog = (CatalogController) replaceSceneContent("Catalog.fxml");
+            CatalogController catalog = (CatalogController) replaceSceneContent("/Client/view/Catalog.fxml");
             catalog.setApp(this);
             stage.setFullScreen(true);
         } catch (Exception ex) {
-            System.out.println("boom");
+            System.out.println(ex);
         }
     }
 
     private void openLogin() {
         try {
-            LoginController login = (LoginController) replaceSceneContent("Login.fxml");
+            LoginController login = (LoginController) replaceSceneContent("/Client/view/Login.fxml");
             login.setApp(this);
         } catch (Exception ex) {
-            System.out.println("boom");
+            System.out.println(ex);
         }
     }
 
@@ -97,20 +104,20 @@ public class Client extends Application {
      */
     private Initializable replaceSceneContent(String fxml) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        InputStream in = Client.class.getResourceAsStream(fxml);
+        InputStream in = Main.class.getResourceAsStream(fxml);
         loader.setBuilderFactory(new JavaFXBuilderFactory());
-        loader.setLocation(Client.class.getResource(fxml));
+        loader.setLocation(Main.class.getResource(fxml));
         AnchorPane page;
         try {
             page = (AnchorPane) loader.load(in);
         } finally {
             in.close();
         }
-
-        Scene scene = new Scene(page);
+        scene = new Scene(page);
 
         stage.setScene(scene);
         stage.sizeToScene();
         return (Initializable) loader.getController();
     }
+
 }

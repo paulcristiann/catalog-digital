@@ -2,7 +2,12 @@ package Server;
 
 import model.Login;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import static Server.LoginUtil.parola;
+import static Server.db.getCon;
 
 /**
  *
@@ -16,17 +21,7 @@ public class LoginCheck {
 
     public void check() {
         int ok = 0;
-        Connection con = null;
-        try {
-
-            Class.forName("com.mysql.jdbc.Driver");
-
-            con = DriverManager.getConnection("jdbc:mysql://tihenea.tk/catalog?" +
-                    "user=proiectmds&password=proiectmds123&verifyServerCertificate=true&useSSL=true");
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        Connection con = getCon();
 
         // TODO: random token
         request.setToken("token");
@@ -34,13 +29,12 @@ public class LoginCheck {
         String sql = "update " +
                 (request.getAdministrare() ? "administrare" : "profesori")
                 + " set token = ? where nume = ? AND parola=? ";
-        System.out.println(sql);
 
         try {
             PreparedStatement query = con.prepareStatement(sql);
             query.setString(1, request.getToken());
             query.setString(2, request.getUser());
-            query.setString(3, request.getPassword());
+            query.setString(3, parola(request.getPassword()));
             ok = query.executeUpdate();
             con.close();
         } catch (SQLException e) {
