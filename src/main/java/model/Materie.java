@@ -3,14 +3,14 @@ package model;
 import java.io.Serializable;
 
 public class Materie implements Serializable {
-    private String materie;
+    private String nume;
     private int id;
     private String eroare="";
     public enum Actiuni {create,read,update,delete};
     private Actiuni actiune;
 
-    public Materie(String materie, int id) {
-        this.materie = materie;
+    public Materie(String nume, int id) {
+        this.nume = nume;
         this.id = id;
     }
 
@@ -26,16 +26,16 @@ public class Materie implements Serializable {
 
     }
 
-    public Materie(String materie) {
-        this.materie = materie;
+    public Materie(String nume) {
+        this.nume = nume;
     }
 
-    public String getMaterie() {
-        return materie;
+    public String getNume() {
+        return nume;
     }
 
-    public void setMaterie(String materie) {
-        this.materie = materie;
+    public void setNume(String nume) {
+        this.nume = nume;
     }
 
     public int getId() {
