@@ -6,7 +6,8 @@ public class Clasa implements Serializable {
     private int id;
     private String nume;
     private int id_diriginte;
-    public enum Actiuni {create,read,update,delete};
+    public enum Actiuni {create,read,update,delete}
+    private String eroare="";
     private Actiuni actiune;
     private String solicitant; //pentru cand vreau sa iau din BD doar clasele la care preda un profesor
 
@@ -27,6 +28,14 @@ public class Clasa implements Serializable {
     @Override
     public String toString() {
         return nume;
+    }
+
+    public String getEroare() {
+        return eroare;
+    }
+
+    public void setEroare(String eroare) {
+        this.eroare = eroare;
     }
 
     public String getSolicitant() {
