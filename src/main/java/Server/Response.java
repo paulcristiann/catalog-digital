@@ -1,9 +1,7 @@
 package Server;
 
-import model.Clasa;
-import model.Login;
-import model.Materie;
-import model.Profesor;
+import model.*;
+
 
 /**
  *
@@ -17,27 +15,51 @@ public class Response {
     }
 
     public Object gerResponse() {
-
         String requestType = request.getClass().toString();
 
-        System.out.println(requestType);
+        // login
+        if (requestType.equals("class model.Login")) {
+            Login lg = (Login) request;
+            LoginCheck lc = new LoginCheck(lg);
+            lc.check();
+            return lg;
+        } else if (model.Logged.class.isAssignableFrom(request.getClass())) {
 
-        switch (requestType) {
+            Logged l = (Logged) request;
 
-            case "class model.Login":
-                Login l = (Login) request;
-                LoginCheck lc = new LoginCheck(l);
-                lc.check();
-                return l;
-            case "class model.Profesor":
-                return new ProfesoriController().exec((Profesor) request);
-            case "class model.Materie":
-                return new MaterieController().exec((Materie)request);
-            case "class model.Clasa":
-                return new ClasaController().exec((Clasa) request);
-            default:
-                return "Cerere neidentificata";
+            //administrator
+            if (l.getAdministrare()) {
+                if (LoginCheck.tokenIsValid(
+                        LoginCheck.User.admin, l.getToken())) {
 
+                    switch (requestType) {
+
+                        case "class model.Profesor":
+                            return new ProfesoriController().exec((Profesor) request);
+                        case "class model.Materie":
+                            return new MaterieController().exec((Materie) request);
+                        case "class model.adminClasa":
+                            return new ClaseController().exec((adminClasa) request);
+                        default:
+                            return "Cerere neidentificata";
+                    }
+                }
+                //profesor
+            } else {
+                if (LoginCheck.tokenIsValid(
+                        LoginCheck.User.profesor, l.getToken())) {
+
+                    switch (requestType) {
+                        case "class model.Clasa":
+                            return new ClasaController().exec((Clasa) request);
+                        default:
+                            return "Cerere neidentificata";
+                    }
+                }
+            }
+        } else {
+            System.err.println("Obiectul nu extinde Logged" + request.getClass());
         }
+        return null;
     }
 }

@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Profesor implements Serializable {
+public class Profesor extends Logged implements Serializable {
     private String nume;
     private String prenume;
     private String email;

@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Clasa implements Serializable {
+public class Clasa  extends Logged implements Serializable {
     private int id;
     private String nume;
     private int id_diriginte;

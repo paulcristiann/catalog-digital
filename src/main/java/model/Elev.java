@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Elev {
+public class Elev extends Logged implements Serializable {
 
 
     private String nume;

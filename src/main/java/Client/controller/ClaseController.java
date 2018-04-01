@@ -9,8 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import model.Clasa;
 import model.Profesor;
+import model.adminClasa;
 
 import java.net.URL;
 import java.util.List;
@@ -25,22 +25,22 @@ public class ClaseController implements Initializable {
     Label mesaj;
 
     @FXML
-    private TableView<Clasa> table;
+    private TableView<adminClasa> table;
     @FXML
-    private TableColumn<Clasa, String> clasa;
+    private TableColumn<adminClasa, String> clasa;
     @FXML
-    private TableColumn<Clasa, String> diriginte;
+    private TableColumn<adminClasa, String> diriginte;
 
 
-    private ObservableList<Clasa> data;
+    private ObservableList<adminClasa> data;
     private ObservableList<Profesor> profesori;
-    private Clasa inEditare;
+    private adminClasa inEditare;
 
 
     @FXML
     private void Mouse(MouseEvent event) {
         mesaj.setText("");
-        Clasa obj = table.getSelectionModel().selectedItemProperty().get();
+        adminClasa obj = table.getSelectionModel().selectedItemProperty().get();
         if (obj != null) {
             inEditare = obj;
             fclasa.setText(obj.getNume());
@@ -56,12 +56,12 @@ public class ClaseController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        clasa.setCellValueFactory(new PropertyValueFactory<Clasa, String>("nume"));
-        diriginte.setCellValueFactory(new PropertyValueFactory<Clasa, String>("diriginte"));
+        clasa.setCellValueFactory(new PropertyValueFactory<adminClasa, String>("nume"));
+        diriginte.setCellValueFactory(new PropertyValueFactory<adminClasa, String>("diriginte"));
 
-        Clasa c = new Clasa();
-        c.setActiune(Clasa.Actiuni.read);
-        data = FXCollections.observableArrayList((List<Clasa>) new Send().send(c));
+        adminClasa c = new adminClasa();
+        c.setActiune(adminClasa.Actiuni.read);
+        data = FXCollections.observableArrayList((List<adminClasa>) new Send().send(c));
         table.setItems(data);
 
         Profesor p = new Profesor();
@@ -73,8 +73,8 @@ public class ClaseController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         mesaj.setText("");
-        Clasa c = new Clasa();
-        c.setActiune(Clasa.Actiuni.create);
+        adminClasa c = new adminClasa();
+        c.setActiune(adminClasa.Actiuni.create);
         c.setNume(fclasa.getText());
         Profesor p = (Profesor) fdiriginte.getValue();
         if (p != null)
@@ -83,7 +83,7 @@ public class ClaseController implements Initializable {
             mesaj.setText("Alegeti un diriginte");
             return;
         }
-        c = (Clasa) new Send().send(c);
+        c = (adminClasa) new Send().send(c);
         if (c.getEroare().equals("")) {
             data.add(c);
         } else {
@@ -95,8 +95,8 @@ public class ClaseController implements Initializable {
     private void update(ActionEvent event) {
         mesaj.setText("");
         if (inEditare != null) {
-            Clasa c = new Clasa();
-            c.setActiune(Clasa.Actiuni.update);
+            adminClasa c = new adminClasa();
+            c.setActiune(adminClasa.Actiuni.update);
             c.setId(inEditare.getId());
             c.setNume(fclasa.getText());
             Profesor p = (Profesor) fdiriginte.getValue();
@@ -106,7 +106,7 @@ public class ClaseController implements Initializable {
                 mesaj.setText("Alegeti un diriginte");
                 return;
             }
-            c = (Clasa) new Send().send(c);
+            c = (adminClasa) new Send().send(c);
             if (c.getEroare().equals("")) {
                 data.remove(inEditare);
                 inEditare = null;
@@ -123,8 +123,8 @@ public class ClaseController implements Initializable {
     private void delete(ActionEvent event) {
         mesaj.setText("");
         if (inEditare != null) {
-            inEditare.setActiune(Clasa.Actiuni.delete);
-            Clasa c = (Clasa) new Send().send(inEditare);
+            inEditare.setActiune(adminClasa.Actiuni.delete);
+            adminClasa c = (adminClasa) new Send().send(inEditare);
             if (c.getEroare().equals("")) {
                 data.remove(inEditare);
                 inEditare = null;

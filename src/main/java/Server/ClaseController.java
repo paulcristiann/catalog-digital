@@ -1,6 +1,6 @@
 package Server;
 
-import model.Clasa;
+import model.adminClasa;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -15,7 +15,7 @@ import static Server.db.getCon;
 public class ClaseController {
 
 
-    public Object exec(Clasa c) {
+    public Object exec(adminClasa c) {
         Connection con = getCon();
         QueryRunner run = new QueryRunner();
         try {
@@ -23,11 +23,11 @@ public class ClaseController {
 
 
                 case read:
-                    List<Clasa> result = run.query(con,
+                    List<adminClasa> result = run.query(con,
                             "SELECT clase.id,clase.nume,clase.id_diriginte, " +
                                     "CONCAT(profesori.nume,\" \",profesori.prenume)   diriginte " +
                                     "from clase join profesori on (clase.id_diriginte=profesori.id)",
-                            new BeanListHandler<>(Clasa.class));
+                            new BeanListHandler<>(adminClasa.class));
 
                     return result;
                 case create:
@@ -42,7 +42,7 @@ public class ClaseController {
                         c = run.query(con, "SELECT clase.id,clase.nume,clase.id_diriginte, " +
                                         " CONCAT(profesori.nume,\" \",profesori.prenume) diriginte " +
                                         " from clase join profesori on (clase.nume =? AND clase.id_diriginte=profesori.id)",
-                                new BeanHandler<Clasa>(Clasa.class),
+                                new BeanHandler<adminClasa>(adminClasa.class),
                                 c.getNume());
 
                     break;
@@ -59,7 +59,7 @@ public class ClaseController {
                         c = run.query(con, "SELECT clase.id,clase.nume,clase.id_diriginte, " +
                                         " CONCAT(profesori.nume,\" \",profesori.prenume) diriginte " +
                                         " from clase join profesori on (clase.id =? AND clase.id_diriginte=profesori.id)",
-                                new BeanHandler<Clasa>(Clasa.class),
+                                new BeanHandler<adminClasa>(adminClasa.class),
                                 c.getId());
 
 

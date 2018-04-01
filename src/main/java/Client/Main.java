@@ -20,7 +20,7 @@ import java.io.InputStream;
 public class Main extends Application {
 
     private static Stage stage;
-    private Login loggedUser;
+    private static Login loggedUser=null;
     private Scene scene = null;
 
     public static Stage getStage() {
@@ -141,6 +141,13 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.sizeToScene();
         return (Initializable) loader.getController();
+    }
+    public static Login getLoggedUser() {
+        return loggedUser;
+    }
+
+    public static void setLoggedUser(Login loggedUser) {
+        Main.loggedUser = loggedUser;
     }
 
 }
