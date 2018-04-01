@@ -5,6 +5,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class Send {
+
     public Object send(Object o) {
 
         int port = 2678;
@@ -13,6 +14,8 @@ public class Send {
             Socket client = new Socket("127.0.0.1", port);
             OutputStream os = client.getOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(os);
+
+            //System.out.println(o.getClass().toString());
 
             oos.writeObject(o);
 

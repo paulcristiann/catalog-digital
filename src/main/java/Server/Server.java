@@ -23,7 +23,9 @@ public class Server extends Thread {
 
                 ObjectOutputStream outStream = new ObjectOutputStream(server.getOutputStream());
                 ObjectInputStream inStream = new ObjectInputStream(server.getInputStream());
-                Response r = new Response(inStream.readObject());
+                Object x = inStream.readObject();
+                //System.out.println(x.getClass().toString());
+                Response r = new Response(x);
                 outStream.writeObject(r.gerResponse());
 
             } catch (SocketTimeoutException s) {

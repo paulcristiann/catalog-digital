@@ -1,6 +1,7 @@
 package Client;
 
 import Client.controller.AdministrareController;
+import Client.controller.AlegeClasaController;
 import Client.controller.CatalogController;
 import Client.controller.LoginController;
 import javafx.application.Application;
@@ -10,6 +11,7 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Clasa;
 import model.Login;
 
 import java.io.InputStream;
@@ -54,7 +56,7 @@ public class Main extends Application {
             if (loggedUser.getAdministrare()) {
                 openAdministrare();
             } else {
-                openCatalog();
+                openSelector(loggedUser);
             }
             return true;
         } else {
@@ -79,15 +81,36 @@ public class Main extends Application {
         }
     }
 
-    private void openCatalog() {
+    public void openCatalog(Login user, Clasa clasaSelectata) {
 
         try {
             CatalogController catalog = (CatalogController) replaceSceneContent("/Client/view/Catalog.fxml");
+            catalog.setProfesorLogat(user);
+            catalog.setClasaDeschisa(clasaSelectata);
             catalog.setApp(this);
             stage.setFullScreen(true);
         } catch (Exception ex) {
             System.out.println(ex);
         }
+
+    }
+
+    private void openSelector(Login user) {
+
+
+        try{
+
+            AlegeClasaController selector = (AlegeClasaController) replaceSceneContent("/Client/view/AlegeClasa.fxml");
+            selector.setUser(user);
+            selector.setApp(this);
+
+        }catch (Exception ex) {
+
+            System.out.println(ex);
+
+        }
+
+
     }
 
     private void openLogin() {
