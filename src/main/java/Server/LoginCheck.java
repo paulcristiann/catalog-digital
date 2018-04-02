@@ -33,7 +33,7 @@ public class LoginCheck {
 
         String sql = "update " +
                 (request.getAdministrare() ? "administrare" : "profesori")
-                + " set token = ? , time=NOW() where nume = ? AND parola = ? ";
+                + " set token = ? , time=NOW() where email = ? AND parola = ? ";
 
         try {
             PreparedStatement query = con.prepareStatement(sql);

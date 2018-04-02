@@ -1,9 +1,11 @@
 package Server;
 
 import model.Clasa;
-import model.Profesor;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static Server.db.getCon;
@@ -25,7 +27,7 @@ public class ClasaController {
 
         try{
 
-            pstmt = con.prepareStatement("SELECT id from profesori where nume=?");
+            pstmt = con.prepareStatement("SELECT id from profesori where email=?");
             pstmt.setString(1,m.getSolicitant());
             rs = pstmt.executeQuery();
 
