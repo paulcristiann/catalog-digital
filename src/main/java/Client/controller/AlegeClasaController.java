@@ -31,7 +31,10 @@ import static Server.db.getCon;
 public class AlegeClasaController implements Initializable {
 
     @FXML
-    Label titlu;
+    private Label titlu;
+
+    @FXML
+    private Label eroare;
 
     @FXML
     ComboBox<Clasa> ClaseDisponibile;
@@ -76,9 +79,18 @@ public class AlegeClasaController implements Initializable {
     public void deschideCatalog(ActionEvent event) throws IOException {
         if (main != null) {
 
-            Clasa clasaSelectata = new Clasa(ClaseDisponibile.getSelectionModel().getSelectedItem().toString());
+            if(ClaseDisponibile.getSelectionModel().getSelectedIndex() > -1) {
 
-            main.openCatalog(user,clasaSelectata);
+                Clasa clasaSelectata = new Clasa(ClaseDisponibile.getSelectionModel().getSelectedItem().toString());
+
+                main.openCatalog(user, clasaSelectata);
+            }
+            else {
+
+                eroare.setText("Va rugam selectati o clasa");
+
+            }
+
         }
     }
 
