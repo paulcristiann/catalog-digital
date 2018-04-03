@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Profesor implements Serializable {
+public class Profesor extends Logged implements Serializable {
     private String nume;
     private String prenume;
     private String email;
@@ -10,6 +10,12 @@ public class Profesor implements Serializable {
     private String parola;
 
     private int id;
+
+    @Override
+    public String toString() {
+        return nume + " " + prenume;
+    }
+
     public enum Actiuni {create,read,update,delete};
 
     private Actiuni actiune;

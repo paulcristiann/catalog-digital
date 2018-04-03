@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Materie implements Serializable {
+public class Materie extends Logged implements Serializable {
     private String nume;
     private int id;
     private String eroare="";

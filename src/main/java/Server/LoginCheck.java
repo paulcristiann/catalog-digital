@@ -4,7 +4,9 @@ import model.Login;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 import static Server.LoginUtil.parola;
 import static Server.db.getCon;
@@ -19,16 +21,19 @@ public class LoginCheck {
         this.request = request;
     }
 
+    public LoginCheck() {
+    }
+
     public void check() {
         int ok = 0;
         Connection con = getCon();
 
-        // TODO: random token
-        request.setToken("token");
+
+        request.setToken(UUID.randomUUID().toString());
 
         String sql = "update " +
                 (request.getAdministrare() ? "administrare" : "profesori")
-                + " set token = ? where nume = ? AND parola=? ";
+                + " set token = ? , time=NOW() where email = ? AND parola = ? ";
 
         try {
             PreparedStatement query = con.prepareStatement(sql);
@@ -47,4 +52,48 @@ public class LoginCheck {
             request.setLogged(false);
         }
     }
+
+    public enum User {admin, profesor}
+
+
+    public static Boolean tokenIsValid(User u, String token) {
+        Connection con = getCon();
+        ResultSet rs = null;
+        int ok = 0;
+        try {
+            if (u == User.admin) {
+                String sql = "SELECT * FROM `administrare` WHERE DATE_ADD(time, INTERVAL 1 HOUR) > NOW() AND" +
+                        " token=?";
+
+
+                PreparedStatement query = con.prepareStatement(sql);
+                query.setString(1, token);
+                rs = query.executeQuery();
+
+
+            } else {
+                String sql = "SELECT * FROM `profesori` WHERE DATE_ADD(time, INTERVAL 1 HOUR) > NOW() AND" +
+                        " token=?";
+
+
+                PreparedStatement query = con.prepareStatement(sql);
+                query.setString(1, token);
+                rs = query.executeQuery();
+            }
+
+            if (rs.next()) {
+                con.close();
+                return true;
+            } else {
+                con.close();
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 }
+
+
