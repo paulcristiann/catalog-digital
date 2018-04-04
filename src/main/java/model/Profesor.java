@@ -8,22 +8,32 @@ public class Profesor extends Logged implements Serializable {
     private String email;
     private String token;
     private String parola;
+    private String eroare = "";
 
     private int id;
+    private int inlocuitor;
 
     @Override
     public String toString() {
         return nume + " " + prenume;
     }
 
-    public enum Actiuni {create,read,update,delete};
+    public enum Actiuni {create, read, update, delete, inlocuieste}
+
 
     private Actiuni actiune;
 
     public Profesor() {
     }
 
-    private String eroare = "";
+
+    public int getInlocuitor() {
+        return inlocuitor;
+    }
+
+    public void setInlocuitor(int inlocuitor) {
+        this.inlocuitor = inlocuitor;
+    }
 
     public Profesor(String nume, String prenume, String email) {
         this.nume = nume;

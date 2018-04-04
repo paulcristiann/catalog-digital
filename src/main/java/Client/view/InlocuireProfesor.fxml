@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="253.0" prefWidth="373.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.InlocuireProfesor">
+   <children>
+      <Label fx:id="mesaj" layoutX="14.0" layoutY="26.0" prefHeight="67.0" prefWidth="340.0" textFill="#d6206d" />
+      <ComboBox fx:id="inlocuitor" layoutX="14.0" layoutY="111.0" prefHeight="49.0" prefWidth="340.0" />
+      <Button layoutX="14.0" layoutY="184.0" mnemonicParsing="false" onAction="#inlocuieste" text="Inlocuieste" />
+      <Button layoutX="114.0" layoutY="184.0" mnemonicParsing="false" onAction="#sterge" text="Inlocuieste si sterge" />
+      <Button fx:id="anulare" layoutX="276.0" layoutY="184.0" mnemonicParsing="false" onAction="#anuleaza" text="Anuleaza" />
+      <Label fx:id="err" layoutX="23.0" layoutY="223.0" prefHeight="16.0" prefWidth="329.0" />
+   </children>
+</AnchorPane>
