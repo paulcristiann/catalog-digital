@@ -17,6 +17,8 @@ public class Response {
     public Object gerResponse() {
         String requestType = request.getClass().toString();
 
+        //System.out.println(requestType);
+
         // login
         if (requestType.equals("class model.Login")) {
             Login lg = (Login) request;
@@ -52,6 +54,8 @@ public class Response {
                     switch (requestType) {
                         case "class model.Clasa":
                             return new ClasaController().exec((Clasa) request);
+                        case "class model.Elev":
+                            return new EleviController().exec((Elev) request);
                         default:
                             return "Cerere neidentificata";
                     }

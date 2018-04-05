@@ -40,7 +40,7 @@ public class ClasaController {
 
         try{
 
-            pstmt = con.prepareStatement("select c.nume\n" +
+            pstmt = con.prepareStatement("select c.id, c.nume, c.id_diriginte\n" +
                     "from clase as c, clasa_profesor_materie\n" +
                     "where c.id = clasa_profesor_materie.id_clasa AND clasa_profesor_materie.id_profesor=?;");
 
@@ -48,7 +48,7 @@ public class ClasaController {
             rs = pstmt.executeQuery();
             while(rs.next())
             {
-                arr.add(new Clasa(rs.getString("nume")));
+                arr.add(new Clasa(rs.getInt("c.id"),rs.getString("c.nume"),rs.getInt("c.id_diriginte")));
             }
             con.close();
 

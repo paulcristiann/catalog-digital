@@ -1,21 +1,36 @@
 package Client.controller;
 
 import Client.Main;
+import Client.Send;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.fxml.LoadException;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Clasa;
+import model.Elev;
 import model.Login;
-import model.Profesor;
-import javafx.scene.control.TextField;
 
-import java.awt.*;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CatalogController implements Initializable {
 
     public javafx.scene.control.Label clasa;
     public javafx.scene.control.Label prof;
+
+    @FXML
+    private TableView<Elev> elevi;
+    @FXML
+    private TableColumn<Elev, String> nume;
+    @FXML
+    private TableColumn<Elev, String> prenume;
+
+    private ObservableList<Elev> data;
 
 
     private Main main;
@@ -44,6 +59,24 @@ public class CatalogController implements Initializable {
         this.main = application;
         clasa.setText(clasaDeschisa.toString());
         prof.setText(profesorLogat.getUser());
+        try {
+            nume.setMinWidth(100);
+            prenume.setMinWidth(100);
+
+            nume.setCellValueFactory(new PropertyValueFactory<Elev, String>("nume"));
+            prenume.setCellValueFactory(new PropertyValueFactory<Elev, String>("prenume"));
+
+            Elev e = new Elev();
+            e.setClasa(clasaDeschisa);
+
+            e.setSolicitant(profesorLogat);
+            e.setActiune(Elev.Actiuni.read);
+
+            data = FXCollections.observableArrayList((List<Elev>) new Send().send(e));
+            elevi.setItems(data);
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     public void logout() {
@@ -52,7 +85,6 @@ public class CatalogController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
 
     }
 

@@ -22,6 +22,12 @@ public class Clasa  extends Logged implements Serializable {
         this.actiune = actiune;
     }
 
+    public Clasa(int id, String nume, int id_diriginte){
+        this.id = id;
+        this.nume = nume;
+        this.id_diriginte = id_diriginte;
+    }
+
     public Clasa() {
     }
 
