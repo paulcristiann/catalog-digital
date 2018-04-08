@@ -41,6 +41,17 @@ public class LoginCheck {
             query.setString(2, request.getUser());
             query.setString(3, parola(request.getPassword()));
             ok = query.executeUpdate();
+            if(ok == 1){
+
+                //adaugam si id-ul
+                PreparedStatement pstmt;
+                ResultSet rs;
+                pstmt = con.prepareStatement("SELECT id from " + (request.getAdministrare() ? "administrare" : "profesori") + " where email=?");
+                pstmt.setString(1,request.getUser());
+                rs = pstmt.executeQuery();
+                rs.next();
+                request.setId(rs.getInt("id"));
+            }
             con.close();
         } catch (SQLException e) {
             System.out.println(e);

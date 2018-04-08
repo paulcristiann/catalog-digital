@@ -83,7 +83,7 @@ public class AlegeClasaController implements Initializable {
 
                 Clasa clasaSelectata = ClaseDisponibile.getSelectionModel().getSelectedItem();
 
-                //System.out.println(clasaSelectata.getId());
+                System.out.println(clasaSelectata.getMat().getNume());
 
                 main.openCatalog(user, clasaSelectata);
             }

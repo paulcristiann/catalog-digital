@@ -2,6 +2,7 @@ package Client.controller;
 
 import Client.Main;
 import Client.Send;
+import Client.interfaces.ModalWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,10 +11,10 @@ import javafx.fxml.LoadException;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.Clasa;
-import model.Elev;
-import model.Login;
+import javafx.scene.input.MouseEvent;
+import model.*;
 
+import javax.sound.midi.MidiChannel;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,6 +23,7 @@ public class CatalogController implements Initializable {
 
     public javafx.scene.control.Label clasa;
     public javafx.scene.control.Label prof;
+    public javafx.scene.control.Label eroare;
 
     @FXML
     private TableView<Elev> elevi;
@@ -39,6 +41,8 @@ public class CatalogController implements Initializable {
 
     private Login profesorLogat;
 
+    private Elev inEditare;
+
     public Clasa getClasaDeschisa() {
         return clasaDeschisa;
     }
@@ -55,9 +59,19 @@ public class CatalogController implements Initializable {
         this.profesorLogat = profesorLogat;
     }
 
+    @FXML
+    private void Mouse(MouseEvent event) {
+        //mesaj.setText("");
+        Elev obj = elevi.getSelectionModel().selectedItemProperty().get();
+        if (obj != null) {
+            inEditare = obj;
+            System.out.println("Selectat: " + obj.getNume());
+        }
+    }
+
     public void setApp(Main application) {
         this.main = application;
-        clasa.setText(clasaDeschisa.toString());
+        clasa.setText(clasaDeschisa.toString() + ", materia: " + clasaDeschisa.getMat().getNume());
         prof.setText(profesorLogat.getUser());
         try {
             nume.setMinWidth(100);
@@ -83,10 +97,23 @@ public class CatalogController implements Initializable {
         main.userLogout();
     }
 
+
+    public void noteaza() {
+
+        if(inEditare != null) {
+            inEditare.setMat(clasaDeschisa.getMat());
+            inEditare.setSolicitant(profesorLogat);
+            inEditare.setClasa(clasaDeschisa);
+            new Client.ModalWindow("/Client/view/Noteaza.fxml", inEditare);
+
+        }else{
+            eroare.setText("Selectati un elev din catalog!");
+        }
+
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-
-
 }

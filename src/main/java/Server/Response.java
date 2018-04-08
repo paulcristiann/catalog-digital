@@ -56,6 +56,8 @@ public class Response {
                             return new ClasaController().exec((Clasa) request);
                         case "class model.Elev":
                             return new EleviController().exec((Elev) request);
+                        case "class model.Nota":
+                            return new NotaController().exec((Nota) request);
                         default:
                             return "Cerere neidentificata";
                     }

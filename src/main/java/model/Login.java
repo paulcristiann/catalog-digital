@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 
 public class Login implements Serializable {
+    private int id;
     private String user;
     private String password;
     private String token;
@@ -24,6 +25,14 @@ public class Login implements Serializable {
     public Login(String nume, String password) {
         this.user = nume;
         this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUser() {

@@ -23,7 +23,7 @@ public class EleviController {
             try {
                 switch (e.getActiune()) {
                     case read:
-                        String sql = "SELECT nume,prenume from elevi where id_clasa=" + Integer.toString(e.getClasa().getId());
+                        String sql = "SELECT id,nume,prenume from elevi where id_clasa=" + Integer.toString(e.getClasa().getId());
 
                         List<Elev> result = run.query(con,
                                 sql, new BeanListHandler<Elev>(Elev.class));

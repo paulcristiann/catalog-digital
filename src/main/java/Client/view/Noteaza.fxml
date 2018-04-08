@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.NoteazaElev">
+   <children>
+      <Label alignment="CENTER" layoutX="121.0" layoutY="14.0" prefHeight="38.0" prefWidth="358.0" text="Adaugare notă" textAlignment="CENTER" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="14.0">
+         <font>
+            <Font size="31.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="35.0" layoutY="102.0" prefHeight="38.0" prefWidth="120.0" text="Elevul: " AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="102.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="numeElev" layoutX="155.0" layoutY="110.0" AnchorPane.leftAnchor="155.0" AnchorPane.topAnchor="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="272.0" layoutY="302.0" mnemonicParsing="false" onAction="#add" text="Adauga" AnchorPane.bottomAnchor="71.0" AnchorPane.leftAnchor="272.0" AnchorPane.rightAnchor="263.0" />
+      <ComboBox fx:id="campN" layoutX="229.0" layoutY="206.0" prefWidth="150.0" promptText="nota: 1 -&gt; 10" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="229.0" AnchorPane.rightAnchor="221.0" />
+      <Label alignment="CENTER" layoutX="210.0" layoutY="159.0" prefHeight="29.0" prefWidth="181.0" text="Nota primită">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="34.0" layoutY="254.0" prefHeight="17.0" prefWidth="534.0" text="Atenție! Odata adaugata, nota poate fi stearsa doar în mod autorizat" textFill="RED">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

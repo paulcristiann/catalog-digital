@@ -10,6 +10,7 @@ public class Clasa  extends Logged implements Serializable {
     private String eroare="";
     private Actiuni actiune;
     private String solicitant; //pentru cand vreau sa iau din BD doar clasele la care preda un profesor
+    private Materie mat;
 
     public Clasa(String nume) {
         this.nume = nume;
@@ -22,13 +23,22 @@ public class Clasa  extends Logged implements Serializable {
         this.actiune = actiune;
     }
 
-    public Clasa(int id, String nume, int id_diriginte){
+    public Clasa(int id, String nume, int id_diriginte, Materie m){
         this.id = id;
         this.nume = nume;
         this.id_diriginte = id_diriginte;
+        this.mat = m;
     }
 
     public Clasa() {
+    }
+
+    public Materie getMat() {
+        return mat;
+    }
+
+    public void setMat(Materie mat) {
+        this.mat = mat;
     }
 
     @Override
