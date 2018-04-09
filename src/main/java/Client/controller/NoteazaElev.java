@@ -15,7 +15,6 @@ public class NoteazaElev implements ModalWindow {
 
     public javafx.scene.control.Label numeElev;
     public ComboBox campN;
-    private Materie mat;
     private Elev elev;
     private Login profesor;
 
@@ -31,7 +30,12 @@ public class NoteazaElev implements ModalWindow {
             n.setProfesor(elev.getSolicitant());
             n.setMaterie(elev.getMat());
             n.setClasa(elev.getClasa());
-            n = (Nota) new Send().send(n);
+            try {
+                n = (Nota) new Send().send(n);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+            new Client.ModalWindow("/Client/view/PopUp.fxml", n);
             close();
             return true;
         }
@@ -49,7 +53,6 @@ public class NoteazaElev implements ModalWindow {
         Elev e = (Elev) o;
         numeElev.setText(e.getNume() + " " + e.getPrenume());
         campN.setItems(FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10));
-        mat = e.getMat();
         elev = e;
         System.out.println("Metoda implementata");
     }

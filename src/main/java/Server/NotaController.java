@@ -22,9 +22,12 @@ public class NotaController {
                 case create:
 
                     if (run.update(con, "INSERT INTO note (nota,id_elev,id_profesor,id_materie,id_clasa) VALUES (?,?,?,?,?)",
-                            n.getValoare(), n.getElev().getId(), n.getProfesor().getId(), n.getMaterie().getId(), n.getClasa().getId()) != 1)
+                            n.getValoare(), n.getElev().getId(), n.getProfesor().getId(), n.getMaterie().getId(), n.getClasa().getId()) != 1) {
                         System.out.println("A aparut o eroare la introducerea notei");
-                    break;
+                        return new Nota(-100);
+                    }
+                    else
+                        return new Nota(100);
             }
             DbUtils.close(con);
         }catch (SQLException e){
