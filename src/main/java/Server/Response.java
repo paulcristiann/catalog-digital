@@ -33,7 +33,7 @@ public class Response {
             if (l.getAdministrare()) {
                 if (LoginCheck.tokenIsValid(
                         LoginCheck.User.admin, l.getToken())) {
-
+                    System.out.println(requestType);
                     switch (requestType) {
 
                         case "class model.Profesor":
@@ -42,6 +42,8 @@ public class Response {
                             return new MaterieController().exec((Materie) request);
                         case "class model.adminClasa":
                             return new ClaseController().exec((adminClasa) request);
+                        case "class model.Parinte":
+                            return new ParintiController().exec((Parinte)request);
                         default:
                             return "Cerere neidentificata";
                     }

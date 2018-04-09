@@ -23,6 +23,11 @@
                                 <fx:include fx:id="tabMaterii" source="Materii.fxml" />
                             </content>
                         </Tab>
+                        <Tab text="Parinti">
+                            <content>
+                                <fx:include fx:id="parinti" source="Parinti.fxml" />
+                            </content>
+                        </Tab>
                         <Tab onSelectionChanged="#logout" text="Logout" />
 
                     </tabs>
