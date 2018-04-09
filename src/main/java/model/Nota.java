@@ -3,6 +3,15 @@ package model;
 import java.io.Serializable;
 
 public class Nota extends Logged implements Serializable {
+    private int cpm;
+
+    public int getCpm() {
+        return cpm;
+    }
+
+    public void setCpm(int cpm) {
+        this.cpm = cpm;
+    }
 
     private int valoare;
 
@@ -14,7 +23,9 @@ public class Nota extends Logged implements Serializable {
 
     private Clasa clasa;
 
-    public enum Actiuni {create,read,update,delete};
+    public enum Actiuni {create, read, update, delete}
+
+    ;
 
     private Nota.Actiuni actiune;
 

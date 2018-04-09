@@ -10,6 +10,15 @@ public class Elev extends Logged implements Serializable {
     private Clasa clasa;
     private Login solicitant;
     private Materie mat;
+    private int cpm;
+
+    public int getCpm() {
+        return cpm;
+    }
+
+    public void setCpm(int cpm) {
+        this.cpm = cpm;
+    }
 
     private int id;
     public enum Actiuni {create,read,update,delete};

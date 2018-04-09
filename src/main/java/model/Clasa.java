@@ -11,6 +11,7 @@ public class Clasa  extends Logged implements Serializable {
     private Actiuni actiune;
     private String solicitant; //pentru cand vreau sa iau din BD doar clasele la care preda un profesor
     private Materie mat;
+    int cpm;
 
     public Clasa(String nume) {
         this.nume = nume;
@@ -23,14 +24,23 @@ public class Clasa  extends Logged implements Serializable {
         this.actiune = actiune;
     }
 
-    public Clasa(int id, String nume, int id_diriginte, Materie m){
+    public Clasa(int id, String nume, int id_diriginte, Materie m,int cpm){
         this.id = id;
         this.nume = nume;
         this.id_diriginte = id_diriginte;
         this.mat = m;
+        this.cpm=cpm;
     }
 
     public Clasa() {
+    }
+
+    public int getCpm() {
+        return cpm;
+    }
+
+    public void setCpm(int cpm) {
+        this.cpm = cpm;
     }
 
     public Materie getMat() {

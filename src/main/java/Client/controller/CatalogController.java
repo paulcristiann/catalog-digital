@@ -104,6 +104,7 @@ public class CatalogController implements Initializable {
             inEditare.setMat(clasaDeschisa.getMat());
             inEditare.setSolicitant(profesorLogat);
             inEditare.setClasa(clasaDeschisa);
+            inEditare.setCpm(clasaDeschisa.getCpm());
             new Client.ModalWindow("/Client/view/Noteaza.fxml", inEditare);
 
         }else{

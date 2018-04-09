@@ -30,6 +30,7 @@ public class NoteazaElev implements ModalWindow {
             n.setProfesor(elev.getSolicitant());
             n.setMaterie(elev.getMat());
             n.setClasa(elev.getClasa());
+            n.setCpm(elev.getCpm());
             try {
                 n = (Nota) new Send().send(n);
             }catch (Exception e){
