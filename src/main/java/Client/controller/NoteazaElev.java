@@ -6,6 +6,7 @@ import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
@@ -15,6 +16,7 @@ public class NoteazaElev implements ModalWindow {
 
     public javafx.scene.control.Label numeElev;
     public ComboBox campN;
+    public CheckBox teza;
     private Elev elev;
     private Login profesor;
 
@@ -31,10 +33,24 @@ public class NoteazaElev implements ModalWindow {
             n.setMaterie(elev.getMat());
             n.setClasa(elev.getClasa());
             n.setCpm(elev.getCpm());
-            try {
-                n = (Nota) new Send().send(n);
-            }catch (Exception e){
-                System.out.println(e);
+            if(teza.isSelected())
+            {
+                //bagam in teza
+                System.out.println("Trebuie sa adaugam o teza");
+                n.setActiune(Nota.Actiuni.teza);
+                try{
+                    n = (Nota) new Send().send(n);
+                }catch (Exception e){
+                    System.out.println(e);
+                }
+                //mai trebuie sa constrangem la o singura teza per semestru
+            }
+            else {
+                try {
+                    n = (Nota) new Send().send(n);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
             }
             new Client.ModalWindow("/Client/view/PopUp.fxml", n);
             close();
@@ -56,6 +72,7 @@ public class NoteazaElev implements ModalWindow {
         campN.setItems(FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10));
         elev = e;
         System.out.println("Metoda implementata");
+
     }
 
     private void close() {

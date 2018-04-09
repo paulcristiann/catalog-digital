@@ -23,7 +23,7 @@ public class Nota extends Logged implements Serializable {
 
     private Clasa clasa;
 
-    public enum Actiuni {create, read, update, delete}
+    public enum Actiuni {create, read, update, delete, teza}
 
     ;
 

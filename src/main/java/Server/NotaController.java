@@ -27,6 +27,25 @@ public class NotaController {
                         return new Nota(-100);
                     } else
                         return new Nota(100);
+
+                case read:
+                    break;
+
+                case update:
+                    break;
+
+                case delete:
+                    break;
+
+                case teza:
+
+                    if (run.update(con,  " INSERT INTO teze (nota,elevi_id,clasa_profesor_materie_id) VALUES (?,?,?)",
+                            n.getValoare(), n.getElev().getId(),n.getCpm()) != 1) {
+                        System.out.println("A aparut o eroare la introducerea tezei");
+                        return new Nota(-100);
+                    } else
+                        return new Nota(100);
+
             }
             DbUtils.close(con);
         } catch (SQLException e) {
