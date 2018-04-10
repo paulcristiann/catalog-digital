@@ -21,9 +21,8 @@ public class AdministrareController implements Initializable {
     private MateriiController includeMateriiController;
     @FXML
     private ParintiController includeParintiController;
-
     @FXML
-    private Tab tabProfesori;
+    private SemestruController includeSemestruController;
 
 
     public void setApp(Main application) {
@@ -57,5 +56,8 @@ public class AdministrareController implements Initializable {
         includeParintiController.start();
     }
 
+    public void refreshSemestru() {
+        includeSemestruController.start();
+    }
 
 }

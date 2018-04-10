@@ -44,6 +44,8 @@ public class Response {
                             return new ClaseController().exec((adminClasa) request);
                         case "class model.Parinte":
                             return new ParintiController().exec((Parinte)request);
+                        case "class model.Semestru":
+                            return new SemestruController().exec((Semestru)request);
                         default:
                             return "Cerere neidentificata";
                     }

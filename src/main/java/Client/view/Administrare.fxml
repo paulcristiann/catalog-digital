@@ -32,6 +32,11 @@
                                 <fx:include fx:id="includeParinti" source="Parinti.fxml"/>
                             </content>
                         </Tab>
+                        <Tab onSelectionChanged="#refreshSemestru" fx:id="tabSemestru" text="Semestru">
+                            <content>
+                                <fx:include fx:id="includeSemestru" source="Semestru.fxml"/>
+                            </content>
+                        </Tab>
                         <Tab onSelectionChanged="#logout" text="Logout"/>
 
                     </tabs>
