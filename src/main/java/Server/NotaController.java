@@ -4,9 +4,12 @@ import model.Nota;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import static Server.LoginUtil.parola;
 import static Server.db.getCon;
@@ -38,14 +41,20 @@ public class NotaController {
                     break;
 
                 case teza:
+                    String sql = "SELECT * FROM teze WHERE elevi_id = " + n.getElev().getId();
+                    List<Object> teze = run.query(con, sql, new BeanListHandler<Object>(Object.class));
+                    if(teze.isEmpty()) {
+                        //putem adauga o teza
 
-                    if (run.update(con,  " INSERT INTO teze (nota,elevi_id,clasa_profesor_materie_id) VALUES (?,?,?)",
-                            n.getValoare(), n.getElev().getId(),n.getCpm()) != 1) {
-                        System.out.println("A aparut o eroare la introducerea tezei");
+                        if (run.update(con, " INSERT INTO teze (nota,elevi_id,clasa_profesor_materie_id) VALUES (?,?,?)",
+                                n.getValoare(), n.getElev().getId(), n.getCpm()) != 1) {
+                            System.out.println("A aparut o eroare la introducerea tezei");
+                            return new Nota(-100);
+                        } else
+                            return new Nota(100);
+                    }
+                    else
                         return new Nota(-100);
-                    } else
-                        return new Nota(100);
-
             }
             DbUtils.close(con);
         } catch (SQLException e) {

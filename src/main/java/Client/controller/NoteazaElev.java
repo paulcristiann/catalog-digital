@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.*;
 
@@ -17,6 +18,7 @@ public class NoteazaElev implements ModalWindow {
     public javafx.scene.control.Label numeElev;
     public ComboBox campN;
     public CheckBox teza;
+    public Label tezaLabel;
     private Elev elev;
     private Login profesor;
 
@@ -71,6 +73,10 @@ public class NoteazaElev implements ModalWindow {
         numeElev.setText(e.getNume() + " " + e.getPrenume());
         campN.setItems(FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10));
         elev = e;
+        if(!elev.getMat().isAreTeza()) {
+            teza.setVisible(false);
+            tezaLabel.setVisible(false);
+        }
         System.out.println("Metoda implementata");
 
     }
