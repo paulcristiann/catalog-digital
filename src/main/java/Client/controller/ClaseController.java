@@ -56,6 +56,9 @@ public class ClaseController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+    }
+
+    public void start() {
         clasa.setCellValueFactory(new PropertyValueFactory<adminClasa, String>("nume"));
         diriginte.setCellValueFactory(new PropertyValueFactory<adminClasa, String>("diriginte"));
 

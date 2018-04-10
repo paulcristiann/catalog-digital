@@ -47,14 +47,13 @@ public class MateriiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-
+    }
+    public void start(){
         materie.setCellValueFactory(new PropertyValueFactory<Materie, String>("nume"));
-
         Materie m = new Materie();
         m.setActiune(Materie.Actiuni.read);
         data = FXCollections.observableArrayList((List<Materie>) new Send().send(m));
         table.setItems(data);
-
     }
 
     @FXML

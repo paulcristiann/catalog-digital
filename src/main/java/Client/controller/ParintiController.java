@@ -61,6 +61,10 @@ public class ParintiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+    }
+
+    public void start(){
+
         nume.setMinWidth(100);
         prenume.setMinWidth(100);
         email.setMinWidth(200);
@@ -73,7 +77,6 @@ public class ParintiController implements Initializable {
         telefon.setCellValueFactory(new PropertyValueFactory<Parinte,String>("telefon"));
 
         citeste();
-
     }
 
     private void citeste() {
