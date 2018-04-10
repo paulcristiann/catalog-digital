@@ -1,12 +1,12 @@
 package Server;
 
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-
-import model.*;
 
 public class Server extends Thread {
     private ServerSocket socket;
@@ -36,18 +36,6 @@ public class Server extends Thread {
             } catch (ClassNotFoundException e) {
                 System.out.println("Class not found");
             }
-        }
-    }
-
-
-
-    public static void main(String args[]) {
-        int port = 2678;
-        try {
-            Thread t = new Server(port);
-            t.start();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

@@ -54,13 +54,30 @@ public class ProfesoriController {
                             p.setEroare("A aparut o eroare");
                     }
                     break;
+                case inlocuieste:
+                    run.update(con, "UPDATE clase SET id_diriginte= ? WHERE id_diriginte = ?",
+                            p.getInlocuitor(), p.getId());
+
+                    run.update(con, "UPDATE clasa_profesor_materie SET id_profesor= ? " +
+                                    "WHERE id_profesor = ?",
+                            p.getInlocuitor(), p.getId());
+
+                    run.update(con, "UPDATE note SET id_profesor= ? " +
+                                    "WHERE id_profesor = ?",
+                            p.getInlocuitor(), p.getId());
+                    break;
             }
             DbUtils.close(con);
         } catch (SQLException e) {
             // Mysql error Duplicate entry
             if (e.getErrorCode() == 1062)
                 p.setEroare("Email-ul trebuie sa fie unic");
-            else
+                //foreign key constraint
+            else if (e.getErrorCode() == 1451) {
+                p.setEroare("Profesorul nu poate fi sters.\n " +
+                        "Inlocuitil cu alt profesor pentru a il sterge");
+                p.setCodEroare(1451);
+            } else
                 p.setEroare("MySQL err");
         }
         return p;

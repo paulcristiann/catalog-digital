@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Catalog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+
+<th:block th:each="elev : ${elevi}">
+    <p th:text="${elev.nume}"/>
+<table style="border:1px solid black">
+    <th:block th:each="materie : ${elev.materii}">
+        <tr>
+            <td th:text="${materie.getKey()}"></td>
+            <td th:utext="${materie.getValue()}"></td>
+        </tr>
+    </th:block>
+</table>
+</th:block>
+
+</body>
+</html>

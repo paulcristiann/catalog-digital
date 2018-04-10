@@ -1,5 +1,6 @@
 package Client.controller;
 
+import Client.ModalWindow;
 import Client.Send;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,8 +28,6 @@ public class ProfesoriController implements Initializable {
     PasswordField fParola;
     @FXML
     Label mesaj;
-    @FXML
-    private Label label;
     @FXML
     private TableView<Profesor> table;
     @FXML
@@ -64,12 +63,16 @@ public class ProfesoriController implements Initializable {
         nume.setCellValueFactory(new PropertyValueFactory<Profesor, String>("nume"));
         prenume.setCellValueFactory(new PropertyValueFactory<Profesor, String>("prenume"));
         email.setCellValueFactory(new PropertyValueFactory<Profesor, String>("email"));
+        read();
+
+    }
+
+    private void read() {
         Profesor p = new Profesor();
         p.setActiune(Profesor.Actiuni.read);
 
-        data = FXCollections.observableArrayList((List<Profesor>)new Send().send(p));
+        data = FXCollections.observableArrayList((List<Profesor>) new Send().send(p));
         table.setItems(data);
-
     }
 
     @FXML
@@ -115,7 +118,17 @@ public class ProfesoriController implements Initializable {
                 data.remove(inEditare);
                 inEditare = null;
             } else {
-                mesaj.setText(inEditare.getEroare());
+                //profesorul nu poate fi sters pentru ca alte inregistrari depind de el
+                if (p.getCodEroare() == 1451) {
+                    // afisam o fereastra cu optiunea de a inlocui profesorul
+                    new ModalWindow("/Client/view/InlocuireProfesor.fxml", inEditare);
+
+                    //refresh
+                    read();
+
+                    return;
+                }
+                mesaj.setText(p.getEroare());
             }
         } else {
             mesaj.setText("Selectati un profesor din tabel");

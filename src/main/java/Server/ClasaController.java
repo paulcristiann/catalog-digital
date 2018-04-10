@@ -1,6 +1,7 @@
 package Server;
 
 import model.Clasa;
+import model.Materie;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,15 +41,15 @@ public class ClasaController {
 
         try{
 
-            pstmt = con.prepareStatement("select c.nume\n" +
-                    "from clase as c, clasa_profesor_materie\n" +
-                    "where c.id = clasa_profesor_materie.id_clasa AND clasa_profesor_materie.id_profesor=?;");
+            pstmt = con.prepareStatement("select c.id, c.nume, c.id_diriginte, m.nume, m.id, m.areteza, cpm.id\n" +
+                    "from clase as c, clasa_profesor_materie as cpm, materii as m\n" +
+                    "where c.id = cpm.id_clasa AND cpm.id_profesor=? AND m.id = cpm.id_materie;");
 
             pstmt.setInt(1,id_prof);
             rs = pstmt.executeQuery();
             while(rs.next())
             {
-                arr.add(new Clasa(rs.getString("nume")));
+                arr.add(new Clasa(rs.getInt("c.id"),rs.getString("c.nume"),rs.getInt("c.id_diriginte"),new Materie(rs.getString("m.nume"),rs.getInt("m.id"),rs.getBoolean("m.areteza")),rs.getInt("cpm.id")));
             }
             con.close();
 

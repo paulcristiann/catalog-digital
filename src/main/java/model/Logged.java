@@ -5,6 +5,17 @@ import java.io.Serializable;
 public abstract class Logged implements Serializable {
     String token;
     Boolean administrare;
+    int codEroare=0;
+
+    public int getCodEroare() {
+        return codEroare;
+    }
+
+    public void setCodEroare(int codEroare) {
+        this.codEroare = codEroare;
+    }
+
+
 
     public Boolean getAdministrare() {
         return administrare;
@@ -21,4 +32,5 @@ public abstract class Logged implements Serializable {
     public void setToken(String token) {
         this.token = token;
     }
+
 }

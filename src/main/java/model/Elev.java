@@ -7,6 +7,18 @@ public class Elev extends Logged implements Serializable {
 
     private String nume;
     private String prenume;
+    private Clasa clasa;
+    private Login solicitant;
+    private Materie mat;
+    private int cpm;
+
+    public int getCpm() {
+        return cpm;
+    }
+
+    public void setCpm(int cpm) {
+        this.cpm = cpm;
+    }
 
     private int id;
     public enum Actiuni {create,read,update,delete};
@@ -18,6 +30,30 @@ public class Elev extends Logged implements Serializable {
         this.prenume = prenume;
         this.id = id;
         this.actiune = actiune;
+    }
+
+    public Materie getMat() {
+        return mat;
+    }
+
+    public void setMat(Materie mat) {
+        this.mat = mat;
+    }
+
+    public Clasa getClasa() {
+        return clasa;
+    }
+
+    public void setClasa(Clasa clasa) {
+        this.clasa = clasa;
+    }
+
+    public Login getSolicitant() {
+        return solicitant;
+    }
+
+    public void setSolicitant(Login solicitant) {
+        this.solicitant = solicitant;
     }
 
     public Elev() {
