@@ -3,21 +3,36 @@
 <head>
     <title>Catalog</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" >
 </head>
 <body>
+<br>
+<br>
+<div class="container">
+    <th:block th:each="elev : ${elevi}">
 
-
-<th:block th:each="elev : ${elevi}">
-    <p th:text="${elev.nume}"/>
-<table style="border:1px solid black">
-    <th:block th:each="materie : ${elev.materii}">
-        <tr>
-            <td th:text="${materie.getKey()}"></td>
-            <td th:utext="${materie.getValue()}"></td>
-        </tr>
+        <h3 th:text="${elev.nume}"/>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Materie</th>
+                <th>Note</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="materie : ${elev.materii}">
+                <tr>
+                    <td th:text="${materie.getKey()}"></td>
+                    <td th:utext="${materie.getValue()}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
     </th:block>
-</table>
-</th:block>
+</div>
+
 
 </body>
 </html>
