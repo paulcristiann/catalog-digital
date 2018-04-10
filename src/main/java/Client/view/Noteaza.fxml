@@ -36,7 +36,7 @@
          </font>
       </Label>
       <CheckBox fx:id="teza" layoutX="291.0" layoutY="255.0" mnemonicParsing="false" text="Bifați casuța" />
-      <Label layoutX="229.0" layoutY="254.0" prefHeight="17.0" prefWidth="51.0" text="Teză?">
+      <Label fx:id="tezaLabel" layoutX="229.0" layoutY="254.0" prefHeight="17.0" prefWidth="51.0" text="Teză?">
          <font>
             <Font size="16.0" />
          </font>
