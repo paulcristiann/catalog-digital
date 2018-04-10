@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml"
 >
-    <head>
-        <title>Catalog virtual </title>
-    </head>
-    <body>
-        <div th:if="${param.error}">
-            Email/Parola incorecte.
-        </div>
-        <div th:if="${param.logout}">
-            Logged out.
-        </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> Email : <input type="text" name="email"/> </label></div>
-            <div><label> Parola: <input type="parola" name="parola"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
-        </form>
-    </body>
+<head>
+    <title>Catalog virtual </title>
+    <th:block sec:authorize="hasRole('parinte')">
+        <meta http-equiv="refresh" content="0; url=http://localhost:8080/parinti"/>
+    </th:block>
+    <th:block sec:authorize="hasRole('elev')">
+        <meta http-equiv="refresh" content="0; url=http://localhost:8080/elevi"/>
+    </th:block>
+</head>
+<body>
+<div th:if="${param.error}">
+    Email/Parola incorecte.
+</div>
+<div th:if="${param.logout}">
+    Logged out.
+</div>
+<form th:action="@{/login}" method="post">
+    <div><label> Email : <input type="text" name="email"/> </label></div>
+    <div><label> Parola: <input type="parola" name="parola"/> </label></div>
+    <div><input type="submit" value="Sign In"/></div>
+</form>
+</body>
 </html>

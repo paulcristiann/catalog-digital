@@ -17,7 +17,7 @@ import static Server.db.getCon;
 public class UserDetailsServiceImp implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user=null;
+        User user = null;
         try {
             Connection con = getCon();
             QueryRunner run = new QueryRunner();
@@ -25,7 +25,19 @@ public class UserDetailsServiceImp implements UserDetailsService {
             user = run.query(con, "SELECT id,email,parola FROM parinti WHERE email= ? ",
                     new BeanHandler<User>(User.class),
                     username);
-            user.setUser("parinte");
+            if (user != null) {
+                user.setUser("parinte");
+            } else {
+                user = run.query(con, "SELECT id,email,parola FROM elevi WHERE email= ? ",
+                        new BeanHandler<User>(User.class),
+                        username);
+                if (user != null) {
+                    user.setUser("elev");
+                } else {
+                    throw new UsernameNotFoundException("cont inexistent.");
+                }
+
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
