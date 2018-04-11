@@ -23,6 +23,8 @@ public class Nota extends Logged implements Serializable {
 
     private Clasa clasa;
 
+    private int semestru;
+
     public enum Actiuni {create, read, update, delete, teza}
 
     ;
@@ -33,6 +35,14 @@ public class Nota extends Logged implements Serializable {
 
         this.valoare = nr;
 
+    }
+
+    public int getSemestru() {
+        return semestru;
+    }
+
+    public void setSemestru(int semestru) {
+        this.semestru = semestru;
     }
 
     public Elev getElev() {

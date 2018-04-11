@@ -24,8 +24,8 @@ public class NotaController {
 
                 case create:
 
-                    if (run.update(con,  " INSERT INTO note (nota,id_elev,semestru,id_clasa_profesor_materie) VALUES (?,?,1,?)",
-                            n.getValoare(), n.getElev().getId(),n.getCpm()) != 1) {
+                    if (run.update(con,  " INSERT INTO note (nota,id_elev,semestru,id_clasa_profesor_materie) VALUES (?,?,?,?)",
+                            n.getValoare(), n.getElev().getId(),n.getSemestru(),n.getCpm()) != 1) {
                         System.out.println("A aparut o eroare la introducerea notei");
                         return new Nota(-100);
                     } else
@@ -41,13 +41,13 @@ public class NotaController {
                     break;
 
                 case teza:
-                    String sql = "SELECT * FROM teze WHERE elevi_id = " + n.getElev().getId();
+                    String sql = "SELECT * FROM teze WHERE elevi_id = " + n.getElev().getId() + " AND semestru = " + n.getSemestru();
                     List<Object> teze = run.query(con, sql, new BeanListHandler<Object>(Object.class));
                     if(teze.isEmpty()) {
                         //putem adauga o teza
 
-                        if (run.update(con, " INSERT INTO teze (nota,elevi_id,clasa_profesor_materie_id) VALUES (?,?,?)",
-                                n.getValoare(), n.getElev().getId(), n.getCpm()) != 1) {
+                        if (run.update(con, " INSERT INTO teze (nota,elevi_id,clasa_profesor_materie_id,semestru) VALUES (?,?,?,?)",
+                                n.getValoare(), n.getElev().getId(), n.getCpm(), n.getSemestru()) != 1) {
                             System.out.println("A aparut o eroare la introducerea tezei");
                             return new Nota(-100);
                         } else

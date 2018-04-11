@@ -71,7 +71,8 @@ public class CatalogController implements Initializable {
 
     public void setApp(Main application) {
         this.main = application;
-        clasa.setText(clasaDeschisa.toString() + ", materia: " + clasaDeschisa.getMat().getNume());
+        clasa.setText(clasaDeschisa.toString() + ", materia: " + clasaDeschisa.getMat().getNume() + " (Semestrul "
+                + SemestruController.getSemestrulCurent() + ")");
         prof.setText(profesorLogat.getUser());
         try {
             nume.setMinWidth(100);

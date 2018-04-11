@@ -62,6 +62,8 @@ public class Response {
                             return new EleviController().exec((Elev) request);
                         case "class model.Nota":
                             return new NotaController().exec((Nota) request);
+                        case "class model.Semestru":
+                            return new SemestruController().exec((Semestru) request);
                         default:
                             return "Cerere neidentificata";
                     }
