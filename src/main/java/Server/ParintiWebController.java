@@ -44,20 +44,30 @@ public class ParintiWebController {
                         "        CONCAT( \n" +
                         "            IF(note.nota=-1,\"Absenta nemotivata\", \n" +
                         "               IF(note.nota=0,\"Absenta motivata\",note.nota)),\" \",note.data) SEPARATOR '<br>') AS note\n" +
-                        "    FROM `note` WHERE note.id_elev=? GROUP BY note.id_clasa_profesor_materie) AS `n`\n" +
+                        "    FROM `note` WHERE note.id_elev=? AND note.semestru=? GROUP BY note.id_clasa_profesor_materie) AS `n`\n" +
                         "    JOIN clasa_profesor_materie ON (n.id=clasa_profesor_materie.id)\n" +
                         "    JOIN materii ON (clasa_profesor_materie.id_materie=materii.id)";
+
+                /** semstrulI **/
                 preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setInt(1, elev.getId());
+                preparedStatement.setInt(2, 1);
                 rs = preparedStatement.executeQuery();
-                List<Pair<String, String>> materii = new ArrayList<Pair<String, String>>();
-                while (rs.next()) {
-                    materii.add(new Pair(rs.getString("nume"),
-                            rs.getString("note")));
+                List<Pair<String, String>> sem1 = new ArrayList<Pair<String, String>>();
+                while (rs.next())
+                    sem1.add(new Pair(rs.getString("nume"), rs.getString("note")));
+                elev.setSemestrul1(sem1);
 
-                }
-                elev.setMaterii(materii);
-                }
+                /** semestrul II **/
+                preparedStatement = con.prepareStatement(sql);
+                preparedStatement.setInt(1, elev.getId());
+                preparedStatement.setInt(2, 2);
+                rs = preparedStatement.executeQuery();
+                List<Pair<String, String>> sem2 = new ArrayList<Pair<String, String>>();
+                while (rs.next())
+                    sem2.add(new Pair(rs.getString("nume"), rs.getString("note")));
+                elev.setSemestrul2(sem2);
+            }
 
             model.addAttribute("elevi", elevi);
         } catch (Exception e) {
@@ -72,18 +82,27 @@ public class ParintiWebController {
         public String nume;
         int id;
 
-        List<Pair<String, String>> materii;
+        List<Pair<String, String>> semestrul1;
+        List<Pair<String, String>> semestrul2;
 
         public Elev() {
 
         }
 
-        public List<Pair<String, String>> getMaterii() {
-            return materii;
+        public List<Pair<String, String>> getSemestrul1() {
+            return semestrul1;
         }
 
-        public void setMaterii(List<Pair<String, String>> materii) {
-            this.materii = materii;
+        public void setSemestrul1(List<Pair<String, String>> semestrul1) {
+            this.semestrul1 = semestrul1;
+        }
+
+        public List<Pair<String, String>> getSemestrul2() {
+            return semestrul2;
+        }
+
+        public void setSemestrul2(List<Pair<String, String>> semestrul2) {
+            this.semestrul2 = semestrul2;
         }
 
         public int getId() {

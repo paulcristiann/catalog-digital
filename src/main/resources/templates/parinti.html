@@ -5,15 +5,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet" >
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
 <br>
 <br>
 <div class="container">
     <th:block th:each="elev : ${elevi}">
-
+        <br>
+        <br>
         <h3 th:text="${elev.nume}"/>
+        <br>
+        <h4>Semestrul I</h4>
         <table class="table">
             <thead>
             <tr>
@@ -22,10 +25,27 @@
             </tr>
             </thead>
             <tbody>
-            <th:block th:each="materie : ${elev.materii}">
+            <th:block th:each="note : ${elev.semestrul1}">
                 <tr>
-                    <td th:text="${materie.getKey()}"></td>
-                    <td th:utext="${materie.getValue()}"></td>
+                    <td th:text="${note.getKey()}"></td>
+                    <td th:utext="${note.getValue()}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+        <h4>Semestrul II</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Materie</th>
+                <th>Note</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="note : ${elev.semestrul2}">
+                <tr>
+                    <td th:text="${note.getKey()}"></td>
+                    <td th:utext="${note.getValue()}"></td>
                 </tr>
             </th:block>
             </tbody>
