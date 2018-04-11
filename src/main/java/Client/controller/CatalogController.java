@@ -114,6 +114,20 @@ public class CatalogController implements Initializable {
 
     }
 
+    public void absenta(){
+
+        if(inEditare != null) {
+            inEditare.setMat(clasaDeschisa.getMat());
+            inEditare.setSolicitant(profesorLogat);
+            inEditare.setClasa(clasaDeschisa);
+            inEditare.setCpm(clasaDeschisa.getCpm());
+            new Client.ModalWindow("/Client/view/Absenta.fxml", inEditare);
+
+        }else{
+            eroare.setText("Selectati un elev din catalog!");
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

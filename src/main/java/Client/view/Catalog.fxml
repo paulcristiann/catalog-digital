@@ -24,7 +24,8 @@
           <TableColumn fx:id="prenume" prefWidth="75.0" text="Prenume" />
         </columns>
       </TableView>
-      <Button layoutX="252.0" layoutY="279.0" mnemonicParsing="false" onAction="#noteaza" text="Adauga nota" AnchorPane.bottomAnchor="94.0" AnchorPane.leftAnchor="252.0" AnchorPane.rightAnchor="252.0" />
+      <Button layoutX="156.0" layoutY="279.0" mnemonicParsing="false" onAction="#noteaza" prefHeight="27.0" prefWidth="127.0" text="Adaugă notă" AnchorPane.bottomAnchor="94.0" AnchorPane.leftAnchor="156.0" />
       <Label fx:id="eroare" alignment="CENTER" layoutX="98.0" layoutY="306.0" prefHeight="17.0" prefWidth="416.0" textFill="RED" />
+      <Button layoutX="317.0" layoutY="279.0" mnemonicParsing="false" onAction="#absenta" prefHeight="27.0" prefWidth="127.0" text="Adaugă absența" AnchorPane.bottomAnchor="94.0" AnchorPane.rightAnchor="156.0" />
    </children>
 </AnchorPane>
