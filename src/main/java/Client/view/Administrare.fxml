@@ -2,46 +2,45 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane pickOnBounds="false" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Client.controller.AdministrareController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" pickOnBounds="false" xmlns="http://javafx.com/javafx/8.0.121" fx:controller="Client.controller.AdministrareController">
     <children>
-        <FlowPane pickOnBounds="false" prefHeight="774.0" prefWidth="1360.0" prefWrapLength="1600.0"
-                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                  AnchorPane.topAnchor="0.0">
+
+        <FlowPane fx:id="loaded" pickOnBounds="false" prefHeight="774.0" prefWidth="1360.0" prefWrapLength="1600.0" style="-fx-background-color: #f2f2f2;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <TabPane fx:id="meniu" minHeight="400.0" minWidth="600.0" prefHeight="780.0" prefWidth="1360.0"
-                         tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="meniu" minHeight="400.0" minWidth="600.0" prefHeight="780.0" prefWidth="1360.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                        <Tab onSelectionChanged="#refreshProfesori" fx:id="tabProfesori" text="Profesori">
+                        <Tab fx:id="tabProfesori" text="Profesori">
                             <content>
-                                <fx:include fx:id="includeProfesori" source="Profesori.fxml"/>
+                                <fx:include fx:id="includeProfesori" source="Profesori.fxml" />
                             </content>
                         </Tab>
-                        <Tab onSelectionChanged="#refreshClase" fx:id="tabClase" text="Clase">
+                        <Tab fx:id="tabClase" text="Clase">
                             <content>
-                                <fx:include fx:id="includeClase" source="Clase.fxml"/>
+                                <fx:include fx:id="includeClase" source="Clase.fxml" />
                             </content>
                         </Tab>
-                        <Tab onSelectionChanged="#refreshMaterii" fx:id="tabMaterii" text="Materii">
+                        <Tab fx:id="tabMaterii" text="Materii">
                             <content>
-                                <fx:include fx:id="includeMaterii" source="Materii.fxml"/>
+                                <fx:include fx:id="includeMaterii" source="Materii.fxml" />
                             </content>
                         </Tab>
-                        <Tab onSelectionChanged="#refreshParinti" fx:id="tabParinti" text="Parinti">
+                        <Tab fx:id="tabParinti" text="Parinti">
                             <content>
-                                <fx:include fx:id="includeParinti" source="Parinti.fxml"/>
+                                <fx:include fx:id="includeParinti" source="Parinti.fxml" />
                             </content>
                         </Tab>
-                        <Tab onSelectionChanged="#refreshSemestru" fx:id="tabSemestru" text="Semestru">
+                        <Tab fx:id="tabSemestru" text="Semestru">
                             <content>
-                                <fx:include fx:id="includeSemestru" source="Semestru.fxml"/>
+                                <fx:include fx:id="includeSemestru" source="Semestru.fxml" />
                             </content>
                         </Tab>
-                        <Tab onSelectionChanged="#logout" text="Logout"/>
+                        <Tab onSelectionChanged="#logout" text="Logout" />
 
                     </tabs>
                 </TabPane>
             </children>
         </FlowPane>
+        <FlowPane id="loading" fx:id="loading" pickOnBounds="false" prefHeight="774.0" prefWidth="1360.0" prefWrapLength="1600.0" stylesheets="@loading.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         </FlowPane>
     </children>
 </AnchorPane>

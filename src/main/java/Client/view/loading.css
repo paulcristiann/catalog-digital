@@ -1,0 +1,6 @@
+#loading{
+            -fx-background-image: url("loading.jpg");
+            -fx-background-repeat: stretch;
+            -fx-background-position: center center;
+
+        }

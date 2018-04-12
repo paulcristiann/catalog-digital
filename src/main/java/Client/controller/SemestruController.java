@@ -2,6 +2,7 @@ package Client.controller;
 
 import Client.Send;
 import Server.ParintiWebController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -30,10 +31,10 @@ public class SemestruController implements Initializable {
     public void start() {
 
         if (getSemestrulCurent() == 1) {
-            semestru.setText("Semestrul I");
+            Platform.runLater(() ->  semestru.setText("Semestrul I"));
         } else {
-            semestru.setText("Semestrul II");
-            comuta.setVisible(false);
+            Platform.runLater(() ->  semestru.setText("Semestrul II"));
+            Platform.runLater(() ->  comuta.setVisible(false));
         }
 
     }
