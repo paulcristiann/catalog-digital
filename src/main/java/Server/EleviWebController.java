@@ -33,19 +33,51 @@ public class EleviWebController {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 elev.setId(rs.getInt("id"));
+                elev.setNume(rs.getString("nume")+" "+rs.getString("prenume"));
 
             }
 
 
-            sql = "SELECT n.note,materii.nume FROM (\n" +
-                    "    SELECT note.id_clasa_profesor_materie id , GROUP_CONCAT(\n" +
-                    "        CONCAT( \n" +
-                    "            IF(note.nota=-1,\"Absenta nemotivata\", \n" +
-                    "               IF(note.nota=0,\"Absenta motivata\",note.nota)),\" \",note.data) SEPARATOR '<br>') AS note\n" +
-                    "    FROM `note` WHERE note.id_elev=? AND note.semestru=? GROUP BY note.id_clasa_profesor_materie) AS `n`\n" +
-                    "    JOIN clasa_profesor_materie ON (n.id=clasa_profesor_materie.id)\n" +
-                    "    JOIN materii ON (clasa_profesor_materie.id_materie=materii.id)";
-
+            sql = "SELECT " +
+                    "  n.note, materii.nume, medii.nota medie FROM " +
+                    "  ( " +
+                    "  SELECT " +
+                    "    note.id_clasa_profesor_materie id, " +
+                    "    note.id_elev id_elev, " +
+                    "    note.semestru semestru, GROUP_CONCAT( " +
+                    "      CONCAT( " +
+                    "        IF( " +
+                    "          note.nota = -1, " +
+                    "          \"Absenta nemotivata\", " +
+                    "          IF( " +
+                    "            note.nota = 0, " +
+                    "            \"Absenta motivata\", " +
+                    "            note.nota " +
+                    "          ) " +
+                    "        ), " +
+                    "        \" \", " +
+                    "        note.data " +
+                    "      ) SEPARATOR '<br>' " +
+                    "    ) AS note " +
+                    "  FROM " +
+                    "    `note` " +
+                    "  WHERE " +
+                    "    note.id_elev = ? AND note.semestru = ? " +
+                    "  GROUP BY " +
+                    "    note.id_clasa_profesor_materie " +
+                    ") AS `n` " +
+                    "JOIN " +
+                    "  clasa_profesor_materie ON( " +
+                    "    n.id = clasa_profesor_materie.id " +
+                    "  ) " +
+                    "JOIN " +
+                    "  materii ON( " +
+                    "    clasa_profesor_materie.id_materie = materii.id " +
+                    "  ) " +
+                    "LEFT JOIN " +
+                    "  medii ON( " +
+                    "    medii.elevi_id = n.id_elev AND medii.semestru = n.semestru AND medii.clasa_profesor_materie_id=n.id " +
+                    "  )";
            /** semestrul I **/
             preparedStatement = con.prepareStatement(sql);
             preparedStatement.setInt(1, elev.getId());
@@ -53,8 +85,9 @@ public class EleviWebController {
             rs = preparedStatement.executeQuery();
             List<Pair<String, String>> sem1 = new ArrayList<Pair<String, String>>();
             while (rs.next())
-                sem1.add(new Pair(rs.getString("nume"),
-                        rs.getString("note")));
+                sem1.add(new Pair(new Pair(rs.getString("nume"),
+                        rs.getString("note")),
+                        rs.getString("medie")));
 
             elev.setSemestrul1(sem1);
 
@@ -65,8 +98,9 @@ public class EleviWebController {
             rs = preparedStatement.executeQuery();
             List<Pair<String, String>> sem2 = new ArrayList<Pair<String, String>>();
             while (rs.next())
-                sem2.add(new Pair(rs.getString("nume"),
-                        rs.getString("note")));
+                sem2.add(new Pair(new Pair(rs.getString("nume"),
+                        rs.getString("note")),
+                        rs.getString("medie")));
 
             elev.setSemestrul2(sem2);
 

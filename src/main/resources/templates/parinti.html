@@ -22,13 +22,15 @@
             <tr>
                 <th>Materie</th>
                 <th>Note</th>
+                <th>Medii</th>
             </tr>
             </thead>
             <tbody>
             <th:block th:each="note : ${elev.semestrul1}">
                 <tr>
-                    <td th:text="${note.getKey()}"></td>
-                    <td th:utext="${note.getValue()}"></td>
+                    <td th:text="${note.getKey().getKey()}"></td>
+                    <td th:utext="${note.getKey().getValue()}"></td>
+                    <td th:text="${note.getValue()}"></td>
                 </tr>
             </th:block>
             </tbody>
@@ -39,13 +41,15 @@
             <tr>
                 <th>Materie</th>
                 <th>Note</th>
+                <th>Medii</th>
             </tr>
             </thead>
             <tbody>
             <th:block th:each="note : ${elev.semestrul2}">
                 <tr>
-                    <td th:text="${note.getKey()}"></td>
-                    <td th:utext="${note.getValue()}"></td>
+                    <td th:text="${note.getKey().getKey()}"></td>
+                    <td th:utext="${note.getKey().getValue()}"></td>
+                    <td th:text="${note.getValue()}"></td>
                 </tr>
             </th:block>
             </tbody>
