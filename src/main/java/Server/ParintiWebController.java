@@ -1,6 +1,7 @@
 package Server;
 
 import javafx.util.Pair;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +20,7 @@ import static Server.db.getCon;
 @Controller
 public class ParintiWebController {
 
-    @GetMapping("/parinti" )
+    @GetMapping("/parinti")
     public String parinti(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Connection con = getCon();
@@ -33,14 +34,14 @@ public class ParintiWebController {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Elev e = new Elev();
-                e.setId(rs.getInt("id" ));
-                e.setNume(rs.getString("nume" ) + " " + rs.getString("prenume" ));
+                e.setId(rs.getInt("id"));
+                e.setNume(rs.getString("nume") + " " + rs.getString("prenume"));
                 elevi.add(e);
             }
             for (Elev elev : elevi) {
 
                 sql = "SELECT " +
-                        "  n.note, materii.nume, medii.nota medie FROM " +
+                        "  n.note, materii.nume, medii.nota medie, teze.nota teza  FROM " +
                         "  ( " +
                         "  SELECT " +
                         "    note.id_clasa_profesor_materie id, " +
@@ -78,15 +79,24 @@ public class ParintiWebController {
                         "LEFT JOIN " +
                         "  medii ON( " +
                         "    medii.elevi_id = n.id_elev AND medii.semestru = n.semestru AND medii.clasa_profesor_materie_id=n.id " +
+                        "  )" +
+                        " LEFT JOIN " +
+                        "  teze ON( " +
+                        "    teze.elevi_id = n.id_elev AND teze.semestru = n.semestru AND teze.clasa_profesor_materie_id=n.id " +
                         "  )";
+
                 /** semstrulI **/
                 preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setInt(1, elev.getId());
                 preparedStatement.setInt(2, 1);
                 rs = preparedStatement.executeQuery();
-                List<Pair<String, String>> sem1 = new ArrayList<Pair<String, String>>();
+                List<Materie> sem1 = new ArrayList<Materie>();
                 while (rs.next())
-                    sem1.add(new Pair(new Pair(rs.getString("nume" ), rs.getString("note" )), rs.getString("medie" )));
+                    sem1.add(new Materie(
+                            rs.getString("nume"),
+                            rs.getString("note"),
+                            rs.getInt("teza"),
+                            rs.getDouble("medie")));
                 elev.setSemestrul1(sem1);
 
                 /** semestrul II **/
@@ -94,9 +104,13 @@ public class ParintiWebController {
                 preparedStatement.setInt(1, elev.getId());
                 preparedStatement.setInt(2, 2);
                 rs = preparedStatement.executeQuery();
-                List<Pair<String, String>> sem2 = new ArrayList<Pair<String, String>>();
+                List<Materie> sem2 = new ArrayList<Materie>();
                 while (rs.next())
-                    sem2.add(new Pair(new Pair(rs.getString("nume" ), rs.getString("note" )), rs.getString("medie" )));
+                    sem2.add(new Materie(
+                            rs.getString("nume"),
+                            rs.getString("note"),
+                            rs.getInt("teza"),
+                            rs.getDouble("medie")));
                 elev.setSemestrul2(sem2);
             }
 
@@ -109,30 +123,76 @@ public class ParintiWebController {
         return "parinti";
     }
 
+    class Materie {
+        private String nume;
+        private String note;
+        private int teza;
+        private double medie;
+
+        public Materie(String nume, String note, int teza, double medie) {
+            this.nume = nume;
+            this.note = note;
+            this.teza = teza;
+            this.medie = medie;
+        }
+
+        public String getNume() {
+            return nume;
+        }
+
+        public void setNume(String nume) {
+            this.nume = nume;
+        }
+
+        public String getNote() {
+            return note;
+        }
+
+        public void setNote(String note) {
+            this.note = note;
+        }
+
+        public int getTeza() {
+            return teza;
+        }
+
+        public void setTeza(int teza) {
+            this.teza = teza;
+        }
+
+        public double getMedie() {
+            return medie;
+        }
+
+        public void setMedie(double medie) {
+            this.medie = medie;
+        }
+    }
+
     class Elev {
         public String nume;
         int id;
 
-        List<Pair<String, String>> semestrul1;
-        List<Pair<String, String>> semestrul2;
+        List<Materie> semestrul1;
+        List<Materie> semestrul2;
 
         public Elev() {
 
         }
 
-        public List<Pair<String, String>> getSemestrul1() {
+        public List<Materie> getSemestrul1() {
             return semestrul1;
         }
 
-        public void setSemestrul1(List<Pair<String, String>> semestrul1) {
+        public void setSemestrul1(List<Materie> semestrul1) {
             this.semestrul1 = semestrul1;
         }
 
-        public List<Pair<String, String>> getSemestrul2() {
+        public List<Materie> getSemestrul2() {
             return semestrul2;
         }
 
-        public void setSemestrul2(List<Pair<String, String>> semestrul2) {
+        public void setSemestrul2(List<Materie> semestrul2) {
             this.semestrul2 = semestrul2;
         }
 
