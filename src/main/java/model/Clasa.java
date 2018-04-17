@@ -10,6 +10,7 @@ public class Clasa  extends Logged implements Serializable {
     private String eroare="";
     private Actiuni actiune;
     private String solicitant; //pentru cand vreau sa iau din BD doar clasele la care preda un profesor
+    private Boolean eDiriginte = false; //cand verific daca profesorul care a deschis catalogul e diriginte la clasa aleasa
     private Materie mat;
     int cpm;
 
@@ -33,6 +34,14 @@ public class Clasa  extends Logged implements Serializable {
     }
 
     public Clasa() {
+    }
+
+    public Boolean geteDiriginte() {
+        return eDiriginte;
+    }
+
+    public void seteDiriginte(Boolean eDiriginte) {
+        this.eDiriginte = eDiriginte;
     }
 
     public int getCpm() {

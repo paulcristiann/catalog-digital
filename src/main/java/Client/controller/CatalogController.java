@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.fxml.LoadException;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,6 +25,7 @@ public class CatalogController implements Initializable {
     public javafx.scene.control.Label clasa;
     public javafx.scene.control.Label prof;
     public javafx.scene.control.Label eroare;
+    public Button butonMotivare;
 
     @FXML
     private TableView<Elev> elevi;
@@ -73,7 +75,16 @@ public class CatalogController implements Initializable {
         this.main = application;
         clasa.setText(clasaDeschisa.toString() + ", materia: " + clasaDeschisa.getMat().getNume() + " (Semestrul "
                 + SemestruController.getSemestrulCurent() + ")");
-        prof.setText(profesorLogat.getUser());
+        if(clasaDeschisa.geteDiriginte()){
+
+            prof.setText(profesorLogat.getUser() + ". Sunteti diriginte, puteti motiva absente.");
+
+        }
+        else{
+            prof.setText(profesorLogat.getUser() + ". Nu sunteti diriginte, nu puteti motiva absente.");
+            butonMotivare.setVisible(false);
+        }
+
         try {
             nume.setMinWidth(100);
             prenume.setMinWidth(100);
@@ -102,6 +113,7 @@ public class CatalogController implements Initializable {
     public void noteaza() {
 
         if(inEditare != null) {
+            eroare.setText("");
             inEditare.setMat(clasaDeschisa.getMat());
             inEditare.setSolicitant(profesorLogat);
             inEditare.setClasa(clasaDeschisa);
@@ -117,11 +129,27 @@ public class CatalogController implements Initializable {
     public void absenta(){
 
         if(inEditare != null) {
+            eroare.setText("");
             inEditare.setMat(clasaDeschisa.getMat());
             inEditare.setSolicitant(profesorLogat);
             inEditare.setClasa(clasaDeschisa);
             inEditare.setCpm(clasaDeschisa.getCpm());
             new Client.ModalWindow("/Client/view/Absenta.fxml", inEditare);
+
+        }else{
+            eroare.setText("Selectati un elev din catalog!");
+        }
+    }
+
+    public void motiveazaAbsente(){
+        System.out.println("Motivare");
+        if(inEditare != null) {
+            eroare.setText("");
+            inEditare.setMat(clasaDeschisa.getMat());
+            inEditare.setSolicitant(profesorLogat);
+            inEditare.setClasa(clasaDeschisa);
+            inEditare.setCpm(clasaDeschisa.getCpm());
+            new Client.ModalWindow("/Client/view/Motiveaza.fxml", inEditare);
 
         }else{
             eroare.setText("Selectati un elev din catalog!");
