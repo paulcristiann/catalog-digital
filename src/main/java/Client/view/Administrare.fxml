@@ -9,6 +9,11 @@
             <children>
                 <TabPane fx:id="meniu" minHeight="400.0" minWidth="600.0" prefHeight="780.0" prefWidth="1360.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
+                        <Tab fx:id="tabPreaviz" text="Preaviz">
+                            <content>
+                                <fx:include fx:id="includePreaviz" source="Preaviz.fxml" />
+                            </content>
+                        </Tab>
                         <Tab fx:id="tabProfesori" text="Profesori">
                             <content>
                                 <fx:include fx:id="includeProfesori" source="Profesori.fxml" />

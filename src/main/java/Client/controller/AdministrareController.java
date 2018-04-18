@@ -26,6 +26,8 @@ public class AdministrareController implements Initializable {
     private ParintiController includeParintiController;
     @FXML
     private SemestruController includeSemestruController;
+    @FXML
+    private PreavizController includePreavizController;
 
     @FXML
     private FlowPane loading;
@@ -53,7 +55,10 @@ public class AdministrareController implements Initializable {
                         new Thread(() -> {
                             Platform.runLater(() -> loading.setVisible(true));
                             switch (to.getText()) {
-                                case "Clase":
+                                case "Preaviz":
+                                    includePreavizController.start();
+                                    break;
+                                 case "Clase":
                                     includeClaseController.start();
                                     break;
                                 case "Profesori":
@@ -77,7 +82,7 @@ public class AdministrareController implements Initializable {
         );
         new Thread(() -> {
             Platform.runLater(() -> loading.setVisible(true));
-            includeProfesoriController.start();
+            includePreavizController.start();
             Platform.runLater(() -> loading.setVisible(false));
         }).start();
 
