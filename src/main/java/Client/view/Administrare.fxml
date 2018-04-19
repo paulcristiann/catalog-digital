@@ -24,6 +24,11 @@
                                 <fx:include fx:id="includeClase" source="Clase.fxml" />
                             </content>
                         </Tab>
+                        <Tab fx:id="tabElevi" text="Elevi">
+                            <content>
+                                <fx:include fx:id="includeElevi" source="Elevi.fxml" />
+                            </content>
+                        </Tab>
                         <Tab fx:id="tabMaterii" text="Materii">
                             <content>
                                 <fx:include fx:id="includeMaterii" source="Materii.fxml" />
