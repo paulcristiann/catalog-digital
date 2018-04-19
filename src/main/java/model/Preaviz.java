@@ -10,9 +10,20 @@ public class Preaviz extends Logged implements Serializable{
     public enum Actiuni{verificare}
     private Actiuni actiune;
 
+
+    private int diriginte;
+
     public Preaviz(){}
     public Actiuni getActiune() {
         return actiune;
+    }
+
+    public int getDiriginte() {
+        return diriginte;
+    }
+
+    public void setDiriginte(int diriginte) {
+        this.diriginte = diriginte;
     }
 
     public void setActiune(Actiuni actiune) {

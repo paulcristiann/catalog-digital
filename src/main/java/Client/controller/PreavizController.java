@@ -13,13 +13,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.scene.input.MouseEvent;
+import model.ListaAbsente;
 import model.Preaviz;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class PreavizController implements Initializable {
+public class PreavizController implements Client.interfaces.ModalWindow{
+
+
 
     @FXML
     private TableView<Preaviz> table;
@@ -32,10 +35,7 @@ public class PreavizController implements Initializable {
     private Preaviz inEditare;
     private ObservableList<Preaviz> data;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
 
-    }
     @FXML
     private void Mouse(MouseEvent event) {
         Preaviz obj = table.getSelectionModel().selectedItemProperty().get();
@@ -44,6 +44,23 @@ public class PreavizController implements Initializable {
         }
     }
 
+    @Override
+    public void setData(Object o) {
+
+        nume.setMinWidth(100);
+        prenume.setMinWidth(100);
+        nrAbsente.setMinWidth(200);
+
+        nume.setCellValueFactory(new PropertyValueFactory<Preaviz, String>("nume"));
+        prenume.setCellValueFactory(new PropertyValueFactory<Preaviz, String>("prenume"));
+        nrAbsente.setCellValueFactory(new PropertyValueFactory<Preaviz, String>("NrAbsente"));
+
+
+        data = FXCollections.observableArrayList((List<Preaviz>)o);
+        table.setItems(data);
+
+
+    }
     public void start(){
 
         nume.setMinWidth(100);

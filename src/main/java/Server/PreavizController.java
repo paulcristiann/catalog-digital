@@ -31,4 +31,29 @@ public class PreavizController {
         }
         return p;
     }
+
+    /**
+     *
+     * @param p
+     * @return o lista cu elevi care au mai mult e 10 absente pentru clasa specificata in p
+     */
+    public Object run(Preaviz p) {
+
+        Connection con = getCon();
+        QueryRunner run = new QueryRunner();
+
+        try {
+                    List<Preaviz> result = run.query(con,
+                            "SELECT absente.numar nrAbsente,elevi.nume,elevi.prenume,elevi.id FROM \n" +
+                                    "                            (SELECT  note.id_elev, SUM(CASE WHEN note.nota =-1 THEN 1 ELSE 0 END) AS numar FROM note GROUP BY note.id_elev) AS absente \n" +
+                                    "                            JOIN elevi ON (absente.id_elev=elevi.id)\n" +
+                                    "                            JOIN clase ON(elevi.id_clasa=clase.id AND clase.id=?)",
+                            new BeanListHandler<Preaviz>(Preaviz.class),p.getDiriginte());
+
+                    return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
 }

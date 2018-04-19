@@ -68,6 +68,8 @@ public class Response {
                             return new NotaController().exec((Nota) request);
                         case "class model.Semestru":
                             return new SemestruController().exec((Semestru) request);
+                        case "class model.Preaviz":
+                            return new PreavizController().run((Preaviz)request);
                         default:
                             return "Cerere neidentificata";
                     }
