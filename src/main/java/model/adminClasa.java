@@ -21,7 +21,10 @@ public class adminClasa extends Logged implements Serializable {
     }
 
 
-
+    @Override
+    public String toString() {
+        return nume;
+    }
 
     public Actiuni getActiune() {
         return actiune;

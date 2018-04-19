@@ -36,6 +36,10 @@ public class Response {
                     System.out.println(requestType);
                     switch (requestType) {
 
+                        case "class model.Preaviz":
+                            return new PreavizController().exec((Preaviz) request);
+                        case "class model.ListaAbsente":
+                            return new ListaAbsenteController().exec((ListaAbsente)request);
                         case "class model.Profesor":
                             return new ProfesoriController().exec((Profesor) request);
                         case "class model.Materie":
@@ -44,6 +48,10 @@ public class Response {
                             return new ClaseController().exec((adminClasa) request);
                         case "class model.Parinte":
                             return new ParintiController().exec((Parinte)request);
+                        case "class model.Elevi":
+                            return new EleviControllerAdmin().exec((Elevi)request);
+                        case "class model.Semestru":
+                            return new SemestruController().exec((Semestru)request);
                         default:
                             return "Cerere neidentificata";
                     }
@@ -60,6 +68,10 @@ public class Response {
                             return new EleviController().exec((Elev) request);
                         case "class model.Nota":
                             return new NotaController().exec((Nota) request);
+                        case "class model.Semestru":
+                            return new SemestruController().exec((Semestru) request);
+                        case "class model.Preaviz":
+                            return new PreavizController().run((Preaviz)request);
                         default:
                             return "Cerere neidentificata";
                     }

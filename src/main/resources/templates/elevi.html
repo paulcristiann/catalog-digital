@@ -3,21 +3,59 @@
 <head>
     <title>Catalog</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
-
-
-<th:block th:each="elev : ${elevi}">
-    <p th:text="${elev.nume}"/>
-<table style="border:1px solid black">
-    <th:block th:each="materie : ${elev.materii}">
+<br>
+<br>
+<div class="container">
+    <h3 th:text="${elev.nume}"/>
+    <br>
+    <h4>Semestrul I</h4>
+    <table class="table">
+        <thead>
         <tr>
-            <td th:text="${materie.getKey()}"></td>
-            <td th:utext="${materie.getValue()}"></td>
+            <th>Materie</th>
+            <th>Note</th>
+            <th>Teza</th>
+            <th>Medie</th>
         </tr>
-    </th:block>
-</table>
-</th:block>
+        </thead>
+        <tbody>
+        <th:block th:each="note : ${elev.semestrul1}">
+            <tr>
+                <td th:text="${note.getNume()}"></td>
+                <td th:utext="${note.getNote()}"></td>
+                <td th:text="${note.getTeza()}"></td>
+                <td th:text="${note.getMedie()}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <h4>Semestrul II</h4>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Materie</th>
+            <th>Note</th>
+            <th>Teza</th>
+            <th>Medie</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="note : ${elev.semestrul2}">
+            <tr>
+                <td th:text="${note.getNume()}"></td>
+                <td th:utext="${note.getNote()}"></td>
+                <td th:text="${note.getTeza()}"></td>
+                <td th:text="${note.getMedie()}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
 
 
 </body>

@@ -23,9 +23,13 @@ public class Nota extends Logged implements Serializable {
 
     private Clasa clasa;
 
-    public enum Actiuni {create, read, update, delete, teza}
+    private int semestru;
 
-    ;
+    private String data;
+
+    private int id;
+
+    public enum Actiuni {create, read, update, delete, teza, readAbsente, motiveazaAbsente};
 
     private Nota.Actiuni actiune;
 
@@ -33,6 +37,47 @@ public class Nota extends Logged implements Serializable {
 
         this.valoare = nr;
 
+    }
+
+    public Nota(String d, int n, int id) {
+        data = d;
+        valoare = n;
+        this.id = id;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        if(valoare == -1 && data != null){
+            return data;
+        }
+        else{
+            return "class model.Nota";
+        }
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getSemestru() {
+        return semestru;
+    }
+
+    public void setSemestru(int semestru) {
+        this.semestru = semestru;
     }
 
     public Elev getElev() {

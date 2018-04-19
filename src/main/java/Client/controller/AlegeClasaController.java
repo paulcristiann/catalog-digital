@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Main;
+import Client.ModalWindow;
 import Client.Send;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
@@ -11,10 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import model.Login;
-import model.Clasa;
-import model.Materie;
-import model.Profesor;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +22,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static Server.db.getCon;
@@ -67,6 +66,14 @@ public class AlegeClasaController implements Initializable {
         ClaseOptiuni = FXCollections.observableArrayList((ArrayList<Clasa>) new Send().send(c));
 
         ClaseDisponibile.setItems(ClaseOptiuni);
+
+        /** Lista elevi cu mai mult de 10 absente */
+        Preaviz p = new Preaviz();
+        p.setDiriginte(user.getId());
+        List<Preaviz> absente = (List<Preaviz>) new Send().send(p);
+        if (absente.size() > 0) {
+            new ModalWindow("/Client/view/Preaviz.fxml", absente);
+        }
 
     }
 

@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class Send {
 
-    public Object send(Object o){
+    public static Object send(Object o){
     /** toate obiectele trimise catre server
      * trebuie sa extinda clasa model.Logged
      * pentru a putea verifica daca utilizatorul este autentificat,

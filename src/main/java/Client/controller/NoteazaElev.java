@@ -35,6 +35,7 @@ public class NoteazaElev implements ModalWindow {
             n.setMaterie(elev.getMat());
             n.setClasa(elev.getClasa());
             n.setCpm(elev.getCpm());
+            n.setSemestru(SemestruController.getSemestrulCurent());
             if(teza.isSelected())
             {
                 //bagam in teza
@@ -45,7 +46,6 @@ public class NoteazaElev implements ModalWindow {
                 }catch (Exception e){
                     System.out.println(e);
                 }
-                //mai trebuie sa constrangem la o singura teza per semestru
             }
             else {
                 try {

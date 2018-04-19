@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.SemestruController">
+   <children>
+      <Label fx:id="semestru" layoutX="45.0" layoutY="55.0" prefHeight="43.0" prefWidth="374.0" />
+      <Button fx:id="comuta" onAction="#comutaSem" layoutX="45.0" layoutY="98.0" mnemonicParsing="false" text="Comuta la semestru II" />
+   </children>
+</AnchorPane>

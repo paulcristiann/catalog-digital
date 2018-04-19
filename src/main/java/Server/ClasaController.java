@@ -49,7 +49,12 @@ public class ClasaController {
             rs = pstmt.executeQuery();
             while(rs.next())
             {
-                arr.add(new Clasa(rs.getInt("c.id"),rs.getString("c.nume"),rs.getInt("c.id_diriginte"),new Materie(rs.getString("m.nume"),rs.getInt("m.id"),rs.getBoolean("m.areteza")),rs.getInt("cpm.id")));
+                Clasa deAdaugat  = new Clasa(rs.getInt("c.id"),rs.getString("c.nume"),rs.getInt("c.id_diriginte"),
+                        new Materie(rs.getString("m.nume"),rs.getInt("m.id"),rs.getBoolean("m.areteza")),
+                        rs.getInt("cpm.id"));
+                if(id_prof == deAdaugat.getId())
+                    deAdaugat.seteDiriginte(true);
+                arr.add(deAdaugat);
             }
             con.close();
 

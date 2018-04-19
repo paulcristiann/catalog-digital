@@ -36,6 +36,12 @@ public class WebLoginConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/",true)
+                .failureUrl("/?error=true");
+
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/parinti").hasRole("parinte")
                 .antMatchers(HttpMethod.GET, "/elevi").hasRole("elev")

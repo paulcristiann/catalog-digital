@@ -55,6 +55,10 @@ public class ProfesoriController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+    }
+
+    public void start(){
+
         nume.setMinWidth(100);
         prenume.setMinWidth(100);
         email.setMinWidth(200);
@@ -64,7 +68,6 @@ public class ProfesoriController implements Initializable {
         prenume.setCellValueFactory(new PropertyValueFactory<Profesor, String>("prenume"));
         email.setCellValueFactory(new PropertyValueFactory<Profesor, String>("email"));
         read();
-
     }
 
     private void read() {
