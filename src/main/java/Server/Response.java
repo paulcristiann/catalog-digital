@@ -36,6 +36,10 @@ public class Response {
                     System.out.println(requestType);
                     switch (requestType) {
 
+                        case "class model.Preaviz":
+                            return new PreavizController().exec((Preaviz) request);
+                        case "class model.ListaAbsente":
+                            return new ListaAbsenteController().exec((ListaAbsente)request);
                         case "class model.Profesor":
                             return new ProfesoriController().exec((Profesor) request);
                         case "class model.Materie":
