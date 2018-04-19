@@ -25,6 +25,8 @@ public class AdministrareController implements Initializable {
     @FXML
     private ParintiController includeParintiController;
     @FXML
+    private EleviController includeEleviController;
+    @FXML
     private SemestruController includeSemestruController;
 
     @FXML
@@ -61,6 +63,9 @@ public class AdministrareController implements Initializable {
                                     break;
                                 case "Materii":
                                     includeMateriiController.start();
+                                    break;
+                                case "Elevi":
+                                    includeEleviController.start();
                                     break;
                                 case "Parinti":
                                     includeParintiController.start();
