@@ -33,17 +33,20 @@ public class EleviWebController {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 elev.setId(rs.getInt("id"));
-                elev.setNume(rs.getString("nume")+" "+rs.getString("prenume"));
+                elev.setNume(rs.getString("nume") + " " + rs.getString("prenume"));
 
             }
 
 
             sql = "SELECT " +
-                    "  n.note, materii.nume, medii.nota medie, teze.nota teza  FROM " +
+                    "  n.note, materii.nume, medii.nota medie,materii.areteza, teze.nota teza," +
+                    "n.suma_note suma_note, n.nr_note  FROM " +
                     "  ( " +
                     "  SELECT " +
                     "    note.id_clasa_profesor_materie id, " +
                     "    note.id_elev id_elev, " +
+                    "    SUM(CASE WHEN note.nota > 0 THEN note.nota ELSE 0 END) AS suma_note, " +
+                    "    SUM(CASE WHEN note.nota > 0 THEN 1 ELSE 0 END) AS nr_note, " +
                     "    note.semestru semestru, GROUP_CONCAT( " +
                     "      CONCAT( " +
                     "        IF( " +
@@ -82,18 +85,22 @@ public class EleviWebController {
                     "  teze ON( " +
                     "    teze.elevi_id = n.id_elev AND teze.semestru = n.semestru AND teze.clasa_profesor_materie_id=n.id " +
                     "  )";
-           /** semestrul I **/
+            /** semestrul I **/
             preparedStatement = con.prepareStatement(sql);
             preparedStatement.setInt(1, elev.getId());
             preparedStatement.setInt(2, 1);
             rs = preparedStatement.executeQuery();
             List<Materie> sem1 = new ArrayList<Materie>();
-            while (rs.next())
+            while (rs.next()) {
+                int teza = (rs.getBoolean("areteza")) ? rs.getInt("teza") : -1;
                 sem1.add(new Materie(
                         rs.getString("nume"),
                         rs.getString("note"),
-                        rs.getInt("teza"),
-                        rs.getDouble("medie")));
+                        teza,
+                        rs.getDouble("medie"),
+                        rs.getInt("suma_note"),
+                        rs.getInt("nr_note")));
+            }
             elev.setSemestrul1(sem1);
 
             /** semestrul II **/
@@ -102,12 +109,16 @@ public class EleviWebController {
             preparedStatement.setInt(2, 2);
             rs = preparedStatement.executeQuery();
             List<Materie> sem2 = new ArrayList<Materie>();
-            while (rs.next())
+            while (rs.next()) {
+                int teza = (rs.getBoolean("areteza")) ? rs.getInt("teza") : -1;
                 sem2.add(new Materie(
                         rs.getString("nume"),
                         rs.getString("note"),
-                        rs.getInt("teza"),
-                        rs.getDouble("medie")));
+                        teza,
+                        rs.getDouble("medie"),
+                        rs.getInt("suma_note"),
+                        rs.getInt("nr_note")));
+            }
             elev.setSemestrul2(sem2);
 
 
@@ -125,12 +136,32 @@ public class EleviWebController {
         private String note;
         private int teza;
         private double medie;
+        private int sumaNote;
+        private int nrNote;
 
-        public Materie(String nume, String note, int teza, double medie) {
+        public Materie(String nume, String note, int teza, double medie, int sumaNote, int nrNote) {
             this.nume = nume;
             this.note = note;
             this.teza = teza;
             this.medie = medie;
+            this.sumaNote = sumaNote;
+            this.nrNote = nrNote;
+        }
+
+        public int getSumaNote() {
+            return sumaNote;
+        }
+
+        public void setSumaNote(int sumaNote) {
+            this.sumaNote = sumaNote;
+        }
+
+        public int getNrNote() {
+            return nrNote;
+        }
+
+        public void setNrNote(int nrNote) {
+            this.nrNote = nrNote;
         }
 
         public String getNume() {
@@ -151,6 +182,11 @@ public class EleviWebController {
 
         public int getTeza() {
             return teza;
+        }
+
+        public String Teza() {
+            if (teza == -1) return "-";
+            else return "" + teza;
         }
 
         public void setTeza(int teza) {
