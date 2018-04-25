@@ -25,7 +25,7 @@ public class ClaseController {
                 case read:
                     List<adminClasa> result = run.query(con,
                             "SELECT clase.id,clase.nume,clase.id_diriginte, " +
-                                    "CONCAT(profesori.nume,\" \",profesori.prenume)   diriginte " +
+                                        "CONCAT(profesori.nume,\" \",profesori.prenume)   diriginte " +
                                     "from clase join profesori on (clase.id_diriginte=profesori.id)",
                             new BeanListHandler<>(adminClasa.class));
 

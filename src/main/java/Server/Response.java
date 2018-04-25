@@ -52,6 +52,9 @@ public class Response {
                             return new EleviControllerAdmin().exec((Elevi)request);
                         case "class model.Semestru":
                             return new SemestruController().exec((Semestru)request);
+                        case "class model.CPM":
+                            return new CPMController().exec((CPM)request);
+
                         default:
                             return "Cerere neidentificata";
                     }

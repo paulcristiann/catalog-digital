@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.CPMController">
+    <children>
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <TableView fx:id="table" editable="true" onMouseClicked="#Mouse" prefHeight="284.0" prefWidth="500.0">
+                    <columns>
+                        <TableColumn fx:id="clasa" prefWidth="259.0" text="Clasa">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="clasaCol" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="profesor" prefWidth="259.0" text="Profesor">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="profeorCol" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="materie" prefWidth="259.0" text="Materie">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="materieCol" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+                <AnchorPane prefHeight="188.0" prefWidth="600.0">
+                    <children>
+                        <Button fx:id="button" layoutX="60.0" layoutY="77.0" onAction="#add" text="Add" AnchorPane.topAnchor="77.0" />
+                         <Button layoutX="185.0" layoutY="77.0" mnemonicParsing="false" onAction="#delete" text="Delete" AnchorPane.topAnchor="77.0" />
+                        <Label fx:id="mesaj" layoutX="22.0" layoutY="121.0" prefHeight="35.0" prefWidth="414.0" />
+                        <ComboBox fx:id="fclasa" layoutX="29.0" layoutY="37.0" prefWidth="150.0" />
+                        <Label layoutX="29.0" layoutY="16.0" text="Clasa" />
+                  <ComboBox fx:id="fprofesor" layoutX="194.0" layoutY="37.0" prefWidth="150.0" />
+                  <Label layoutX="202.0" layoutY="16.0" text="Profesor" />
+                  <ComboBox fx:id="fmaterie" layoutX="361.0" layoutY="35.0" prefWidth="150.0" />
+                  <Label layoutX="369.0" layoutY="14.0" text="Materie" />
+                    </children>
+
+                </AnchorPane>
+            </children>
+        </VBox>
+    </children>
+
+</AnchorPane>

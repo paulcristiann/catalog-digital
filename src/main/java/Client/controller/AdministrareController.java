@@ -30,6 +30,8 @@ public class AdministrareController implements Initializable {
     private SemestruController includeSemestruController;
     @FXML
     private PreavizController includePreavizController;
+    @FXML
+    private CPMController includeCPMController;
 
     @FXML
     private FlowPane loading;
@@ -77,6 +79,8 @@ public class AdministrareController implements Initializable {
                                     break;
                                 case "Semestru":
                                     includeSemestruController.start();
+                                case "CPM":
+                                    includeCPMController.start();
                                     break;
 
                             }

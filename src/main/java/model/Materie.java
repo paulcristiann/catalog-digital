@@ -28,6 +28,11 @@ public class Materie extends Logged implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return  nume;
+    }
+
     public boolean isAreTeza() {
         return areTeza;
     }

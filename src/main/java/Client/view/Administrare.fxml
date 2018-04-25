@@ -33,6 +33,10 @@
                             <content>
                                 <fx:include fx:id="includeMaterii" source="Materii.fxml" />
                             </content>
+                        </Tab> <Tab fx:id="tabCPM" text="CPM">
+                            <content>
+                                <fx:include fx:id="includeCPM" source="CPM.fxml" />
+                            </content>
                         </Tab>
                         <Tab fx:id="tabParinti" text="Parinti">
                             <content>
