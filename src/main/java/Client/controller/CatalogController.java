@@ -17,6 +17,7 @@ import model.*;
 
 import javax.sound.midi.MidiChannel;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,6 +34,9 @@ public class CatalogController implements Initializable {
     private TableColumn<Elev, String> nume;
     @FXML
     private TableColumn<Elev, String> prenume;
+    @FXML
+    private TableColumn<Elev, String> note;
+
 
     private ObservableList<Elev> data;
 
@@ -86,20 +90,9 @@ public class CatalogController implements Initializable {
         }
 
         try {
-            nume.setMinWidth(100);
-            prenume.setMinWidth(100);
 
-            nume.setCellValueFactory(new PropertyValueFactory<Elev, String>("nume"));
-            prenume.setCellValueFactory(new PropertyValueFactory<Elev, String>("prenume"));
+            updateCatalog();
 
-            Elev e = new Elev();
-            e.setClasa(clasaDeschisa);
-
-            e.setSolicitant(profesorLogat);
-            e.setActiune(Elev.Actiuni.read);
-
-            data = FXCollections.observableArrayList((List<Elev>) new Send().send(e));
-            elevi.setItems(data);
         }catch (Exception e){
             System.out.println(e);
         }
@@ -123,6 +116,7 @@ public class CatalogController implements Initializable {
         }else{
             eroare.setText("Selectati un elev din catalog!");
         }
+        updateCatalog();
 
     }
 
@@ -154,6 +148,32 @@ public class CatalogController implements Initializable {
         }else{
             eroare.setText("Selectati un elev din catalog!");
         }
+    }
+
+    public void updateCatalog(){
+        nume.setMinWidth(100);
+        prenume.setMinWidth(100);
+
+        nume.setCellValueFactory(new PropertyValueFactory<Elev, String>("nume"));
+        prenume.setCellValueFactory(new PropertyValueFactory<Elev, String>("prenume"));
+        note.setCellValueFactory(new PropertyValueFactory<Elev, String>("note"));
+
+        Elev e = new Elev();
+        e.setClasa(clasaDeschisa);
+        e.setSolicitant(profesorLogat);
+        e.setActiune(Elev.Actiuni.read);
+
+        data = FXCollections.observableArrayList((List<Elev>) new Send().send(e));
+        for(Elev i:data){
+
+            Nota deTrimis = new Nota(i);
+            deTrimis.setActiune(Nota.Actiuni.read);
+            List<Nota> not = (List<Nota>) new Send().send(deTrimis);
+            i.setNote(not.toString());
+
+        }
+
+        elevi.setItems(data);
     }
 
     @Override

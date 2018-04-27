@@ -45,6 +45,11 @@ public class Nota extends Logged implements Serializable {
         this.id = id;
     }
 
+    public Nota(Elev e)
+    {
+        elev = e;
+    }
+
     public String getData() {
         return data;
     }
@@ -59,7 +64,7 @@ public class Nota extends Logged implements Serializable {
             return data;
         }
         else{
-            return "class model.Nota";
+            return String.valueOf(valoare);
         }
 
     }

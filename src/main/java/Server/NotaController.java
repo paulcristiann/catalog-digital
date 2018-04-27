@@ -35,7 +35,18 @@ public class NotaController {
                         return new Nota(100);
 
                 case read:
-                    break;
+                    List<Nota> note = new ArrayList<>();
+                    PreparedStatement pstmt;
+                    ResultSet rset;
+                    pstmt = con.prepareStatement("SELECT nota from note where id_elev=?");
+                    pstmt.setInt(1,n.getElev().getId());
+                    rset = pstmt.executeQuery();
+                    while(rset.next())
+                    {
+                        if(rset.getInt("nota") != 0 && rset.getInt("nota") != -1)
+                        note.add(new Nota(rset.getInt("nota")));
+                    }
+                    return note;
 
                 case update:
                     break;

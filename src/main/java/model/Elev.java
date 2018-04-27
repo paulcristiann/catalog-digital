@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Elev extends Logged implements Serializable {
 
@@ -11,6 +12,7 @@ public class Elev extends Logged implements Serializable {
     private Login solicitant;
     private Materie mat;
     private int cpm;
+    private String note;
 
     public int getCpm() {
         return cpm;
@@ -30,6 +32,14 @@ public class Elev extends Logged implements Serializable {
         this.prenume = prenume;
         this.id = id;
         this.actiune = actiune;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public Materie getMat() {
