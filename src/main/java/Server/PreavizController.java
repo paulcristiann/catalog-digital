@@ -47,7 +47,7 @@ public class PreavizController {
                             "SELECT absente.numar nrAbsente,elevi.nume,elevi.prenume,elevi.id FROM \n" +
                                     "                            (SELECT  note.id_elev, SUM(CASE WHEN note.nota =-1 THEN 1 ELSE 0 END) AS numar FROM note GROUP BY note.id_elev) AS absente \n" +
                                     "                            JOIN elevi ON (absente.id_elev=elevi.id)\n" +
-                                    "                            JOIN clase ON(elevi.id_clasa=clase.id AND clase.id=?)",
+                                    "                            JOIN clase ON(elevi.id_clasa=clase.id AND clase.id=? AND absente.numar >= 10)",
                             new BeanListHandler<Preaviz>(Preaviz.class),p.getDiriginte());
 
                     return result;
