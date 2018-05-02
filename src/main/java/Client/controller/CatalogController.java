@@ -2,22 +2,26 @@ package Client.controller;
 
 import Client.Main;
 import Client.Send;
-import Client.interfaces.ModalWindow;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.fxml.LoadException;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import model.*;
+import javafx.scene.layout.FlowPane;
+import model.Clasa;
+import model.Elev;
+import model.Login;
+import model.Nota;
 
-import javax.sound.midi.MidiChannel;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -36,7 +40,8 @@ public class CatalogController implements Initializable {
     private TableColumn<Elev, String> prenume;
     @FXML
     private TableColumn<Elev, String> note;
-
+    @FXML
+    private FlowPane loading;
 
     private ObservableList<Elev> data;
 
@@ -163,17 +168,37 @@ public class CatalogController implements Initializable {
         e.setSolicitant(profesorLogat);
         e.setActiune(Elev.Actiuni.read);
 
-        data = FXCollections.observableArrayList((List<Elev>) new Send().send(e));
-        for(Elev i:data){
+        Platform.runLater(() -> loading.setVisible(true));
+        Task<Void> load= new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(100);
 
-            Nota deTrimis = new Nota(i);
-            deTrimis.setActiune(Nota.Actiuni.read);
-            List<Nota> not = (List<Nota>) new Send().send(deTrimis);
-            i.setNote(not.toString());
+                    data = FXCollections.observableArrayList((List<Elev>) new Send().send(e));
+                    for(Elev i:data){
 
-        }
+                        Nota deTrimis = new Nota(i);
+                        deTrimis.setActiune(Nota.Actiuni.read);
+                        List<Nota> not = (List<Nota>) new Send().send(deTrimis);
+                        i.setNote(not.toString());
+                    }
 
-        elevi.setItems(data);
+                } catch (InterruptedException e) {
+                }
+                return null;
+            }
+        };
+        load.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                elevi.setItems(data);
+                Platform.runLater(() -> loading.setVisible(false));
+            }
+        });
+
+        new Thread(load).start();
+
     }
 
     @Override
