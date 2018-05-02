@@ -48,6 +48,11 @@
                                 <fx:include fx:id="includeSemestru" source="Semestru.fxml" />
                             </content>
                         </Tab>
+                        <Tab fx:id="tabArhivare" text="Arhivare">
+                            <content>
+                                <fx:include fx:id="includeArhivare" source="Arhivare.fxml"/>
+                            </content>
+                        </Tab>
                         <Tab onSelectionChanged="#logout" text="Logout" />
 
                     </tabs>

@@ -54,6 +54,8 @@ public class Response {
                             return new SemestruController().exec((Semestru)request);
                         case "class model.CPM":
                             return new CPMController().exec((CPM)request);
+                        case "class model.Arhiva":
+                            return new ArhivaController().exec();
 
                         default:
                             return "Cerere neidentificata";
