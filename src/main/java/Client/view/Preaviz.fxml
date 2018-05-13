@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -8,34 +14,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.PreavizController">
-    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-
-    <TableView fx:id="table" editable="true" onMouseClicked="#Mouse">
-    <columns>
-    <TableColumn fx:id="nume" prefWidth="75.0" text="Nume">
-        <cellValueFactory>
-            <PropertyValueFactory property="firstNameCol" />
-        </cellValueFactory>
-    </TableColumn>
-    <TableColumn fx:id="prenume" prefWidth="75.0" text="Prenume">
-        <cellValueFactory>
-            <PropertyValueFactory property="lastNameCol" />
-        </cellValueFactory>
-    </TableColumn>
-    <TableColumn fx:id="nrAbsente" prefWidth="114.0" text="Numar Absente">
-        <cellValueFactory>
-            <PropertyValueFactory property="lastNameCol" />
-        </cellValueFactory>
-    </TableColumn>
-    </columns>
-    </TableView>
-        <AnchorPane prefHeight="196.0" prefWidth="470.0">
-            <padding>
-                <Insets bottom="15.0" top="15.0" />
-            </padding>
-        </AnchorPane>
-
-    </VBox>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.PreavizController">
+   <children>
+       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <children>
+            <AnchorPane prefHeight="89.0" prefWidth="600.0">
+               <children>
+                  <Label alignment="CENTER" layoutY="14.0" prefHeight="27.0" prefWidth="600.0" text="Atentie! Aveți elevi cu un număr de absențe nemotivate peste limita permisă." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="Avenir Roman" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="99.0" layoutY="51.0" text="Elevilor în această situație li se va emite un preaviz de exmatriculare." textFill="RED" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" />
+               </children>
+            </AnchorPane>
+      
+          <TableView fx:id="table" editable="true" onMouseClicked="#Mouse" prefHeight="325.0" prefWidth="600.0">
+          <columns>
+          <TableColumn fx:id="nume" prefWidth="75.0" text="Nume">
+              <cellValueFactory>
+                  <PropertyValueFactory property="firstNameCol" />
+              </cellValueFactory>
+          </TableColumn>
+          <TableColumn fx:id="prenume" prefWidth="75.0" text="Prenume">
+              <cellValueFactory>
+                  <PropertyValueFactory property="lastNameCol" />
+              </cellValueFactory>
+          </TableColumn>
+          <TableColumn fx:id="nrAbsente" prefWidth="114.0" text="Numar Absente">
+              <cellValueFactory>
+                  <PropertyValueFactory property="lastNameCol" />
+              </cellValueFactory>
+          </TableColumn>
+          </columns>
+          </TableView>
+          </children>
+   
+       </VBox>
+   </children>
 
 </AnchorPane>
