@@ -20,6 +20,7 @@
            <TableColumn fx:id="nume" prefWidth="75.0" text="Nume" />
            <TableColumn fx:id="prenume" prefWidth="75.0" text="Prenume" />
            <TableColumn fx:id="note" prefWidth="500.0" text="Note" />
+            <TableColumn fx:id="medie" prefWidth="75.0" text="Medie" />
         </columns>
       </TableView>
       <Button layoutX="37.0" layoutY="293.0" mnemonicParsing="false" onAction="#noteaza" prefHeight="27.0" prefWidth="141.0" text="Adaugă notă" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="37.0" />

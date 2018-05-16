@@ -13,6 +13,7 @@ public class Elev extends Logged implements Serializable {
     private Materie mat;
     private int cpm;
     private String note;
+    private double medie;
 
     public int getCpm() {
         return cpm;
@@ -32,6 +33,14 @@ public class Elev extends Logged implements Serializable {
         this.prenume = prenume;
         this.id = id;
         this.actiune = actiune;
+    }
+
+    public double getMedie() {
+        return medie;
+    }
+
+    public void setMedie(double medie) {
+        this.medie = medie;
     }
 
     public String getNote() {

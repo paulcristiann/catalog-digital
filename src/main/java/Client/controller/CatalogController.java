@@ -21,6 +21,7 @@ import model.Elev;
 import model.Login;
 import model.Nota;
 
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -40,6 +41,8 @@ public class CatalogController implements Initializable {
     private TableColumn<Elev, String> prenume;
     @FXML
     private TableColumn<Elev, String> note;
+    @FXML
+    private TableColumn<Elev, String> medie;
     @FXML
     private FlowPane loading;
 
@@ -162,6 +165,7 @@ public class CatalogController implements Initializable {
         nume.setCellValueFactory(new PropertyValueFactory<Elev, String>("nume"));
         prenume.setCellValueFactory(new PropertyValueFactory<Elev, String>("prenume"));
         note.setCellValueFactory(new PropertyValueFactory<Elev, String>("note"));
+        medie.setCellValueFactory(new PropertyValueFactory<Elev,String>("medie"));
 
         Elev e = new Elev();
         e.setClasa(clasaDeschisa);
@@ -182,6 +186,16 @@ public class CatalogController implements Initializable {
                         deTrimis.setActiune(Nota.Actiuni.read);
                         List<Nota> not = (List<Nota>) new Send().send(deTrimis);
                         i.setNote(not.toString());
+                        if(not.size() >= 2) {
+                            int nrNote = not.size();
+                            int sum = 0;
+                            for (int z = 0; z < nrNote; z++) {
+
+                                sum = sum + not.get(z).getValoare();
+
+                            }
+                            i.setMedie(sum / nrNote);
+                        }
                     }
 
                 } catch (InterruptedException e) {
