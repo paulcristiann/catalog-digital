@@ -1,15 +1,12 @@
 package Server;
 
 import Server.model.User;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 
 import static Server.db.getCon;
 
@@ -18,19 +15,42 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = null;
-        try {
-            Connection con = getCon();
-            QueryRunner run = new QueryRunner();
+        Connection con = getCon();
 
-            user = run.query(con, "SELECT id,email,parola FROM parinti WHERE email= ? ",
-                    new BeanHandler<User>(User.class),
-                    username);
+        try {
+
+            Statement stmt = con.createStatement();
+            String sql;
+            PreparedStatement ps;
+            ResultSet rs;
+
+            sql = "SELECT id,email,parola FROM parinti WHERE email= ? ";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setEmail(rs.getString("email"));
+                user.setParola(rs.getString("parola"));
+
+            }
+
             if (user != null) {
                 user.setUser("parinte");
             } else {
-                user = run.query(con, "SELECT id,email,parola FROM elevi WHERE email= ? ",
-                        new BeanHandler<User>(User.class),
-                        username);
+                sql = "SELECT id,email,parola FROM elevi WHERE email= ? ";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, username);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setEmail(rs.getString("email"));
+                    user.setParola(rs.getString("parola"));
+
+                }
+
                 if (user != null) {
                     user.setUser("elev");
                 } else {

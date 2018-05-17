@@ -1,8 +1,5 @@
 package Server;
 
-import javafx.util.Pair;
-
-import org.apache.commons.dbutils.QueryRunner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -24,7 +21,6 @@ public class ParintiWebController {
     public String parinti(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Connection con = getCon();
-        QueryRunner run = new QueryRunner();
 
         try {
             List<Elev> elevi = new ArrayList<Elev>();

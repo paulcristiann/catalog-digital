@@ -172,7 +172,7 @@ public class EleviController implements Initializable{
             }
             e.setProcedura(Elevi.Proceduri.modificare);
             e.setId(inEditare.getId());
-            e = (Elevi) new Send().send(p);
+            e = (Elevi) new Send().send(e);
             if (e.getEroare().equals("")) {
                 data.remove(inEditare);
                 inEditare = null;

@@ -1,7 +1,6 @@
 package Server;
 
 import model.Arhiva;
-import org.apache.commons.dbutils.QueryRunner;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -27,7 +26,7 @@ public class ArhivaController {
 
 
         Connection con = getCon();
-        QueryRunner run = new QueryRunner();
+
         Arhiva arhiva = new Arhiva();
         try {
             List<Elev> elevi = new ArrayList<Elev>();

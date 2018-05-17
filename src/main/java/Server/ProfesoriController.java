@@ -1,13 +1,10 @@
 package Server;
 
 import model.Profesor;
-import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -18,43 +15,77 @@ public class ProfesoriController {
 
     public Object exec(Profesor p) {
         Connection con = getCon();
-        QueryRunner run = new QueryRunner();
 
         try {
+            Statement stmt = con.createStatement();
+            String sql;
+            PreparedStatement ps;
+            ResultSet rs;
             switch (p.getActiune()) {
                 case read:
-                    List<Profesor> result = run.query(con,
-                            "SELECT id,nume,prenume,email from profesori",
-                            new BeanListHandler<Profesor>(Profesor.class));
+                    List<Profesor> result = new ArrayList<>();
+                    sql = "SELECT id,nume,prenume,email from profesori";
+                    rs = stmt.executeQuery(sql);
+                    while (rs.next()) {
+                        Profesor pr = new Profesor();
+                        pr.setId(rs.getInt("id"));
+                        pr.setNume(rs.getString("nume"));
+                        pr.setPrenume(rs.getString("prenume"));
+                        pr.setEmail(rs.getString("email"));
+                        result.add(pr);
+                    }
 
                     return result;
 
                 case delete:
-                    if (run.update(con, "DELETE FROM profesori where id = ?", p.getId()) != 1)
+                    sql = "DELETE FROM profesori where id = ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setInt(1, p.getId());
+                    if (1 != ps.executeUpdate())
                         p.setEroare("A aparut o eroare");
-
                     break;
                 case create:
                     p.setEroare(check(p));
                     if (p.getEroare().equals("")) {
-                        if (run.update(con, "INSERT INTO profesori (nume,prenume,email,parola) VALUES (?,?,?,?)",
-                                p.getNume(), p.getPrenume(), p.getEmail(), parola(p.getParola())) != 1)
+                        sql = "INSERT INTO profesori (nume,prenume,email,parola) VALUES (?,?,?,?)";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, p.getNume());
+                        ps.setString(2, p.getPrenume());
+                        ps.setString(3, p.getEmail());
+                        ps.setString(4, parola(p.getParola()));
+                        if (1 != ps.executeUpdate())
                             p.setEroare("A aparut o eroare");
-                        else
-                            p = run.query(con, "SELECT id,nume,prenume,email FROM profesori WHERE email= ? ",
-                                    new BeanHandler<Profesor>(Profesor.class),
-                                    p.getEmail());
+                        else {
+                            sql = "SELECT id,nume,prenume,email FROM profesori WHERE email= ? ";
+                            ps = con.prepareStatement(sql);
+                            ps.setString(1, p.getEmail());
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                p = new Profesor();
+                                p.setId(rs.getInt("id"));
+                                p.setNume(rs.getString("nume"));
+                                p.setPrenume(rs.getString("prenume"));
+                                p.setEmail(rs.getString("email"));
+                            }
+                        }
                     }
                     break;
                 case update:
                     p.setEroare(check(p));
                     if (p.getEroare().equals("")) {
-                        if (run.update(con, "UPDATE profesori SET nume= ?,prenume = ?,email =  ?,parola= ? WHERE id = ?",
-                                p.getNume(), p.getPrenume(), p.getEmail(), parola(p.getParola()), p.getId()) != 1)
+                        sql = "UPDATE profesori SET nume= ?,prenume = ?,email =  ?,parola= ? WHERE id = ?";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, p.getNume());
+                        ps.setString(2, p.getPrenume());
+                        ps.setString(3, p.getEmail());
+                        ps.setString(4, parola(p.getParola()));
+                        ps.setInt(5, p.getId());
+                        if (1 != ps.executeUpdate())
                             p.setEroare("A aparut o eroare");
                     }
                     break;
                 case inlocuieste:
+                    QueryRunner run = new QueryRunner();
                     run.update(con, "UPDATE clase SET id_diriginte= ? WHERE id_diriginte = ?",
                             p.getInlocuitor(), p.getId());
 
@@ -67,7 +98,7 @@ public class ProfesoriController {
                             p.getInlocuitor(), p.getId());
                     break;
             }
-            DbUtils.close(con);
+
         } catch (SQLException e) {
             // Mysql error Duplicate entry
             if (e.getErrorCode() == 1062)

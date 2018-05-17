@@ -1,13 +1,9 @@
 package Server;
 
 import model.Parinte;
-import org.apache.commons.dbutils.DbUtils;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -19,45 +15,86 @@ public class ParintiController {
     public Object exec(Parinte p) {
 
         Connection con = getCon();
-        QueryRunner run = new QueryRunner();
+
 
         try {
+            Statement stmt = con.createStatement();
+            String sql;
+            PreparedStatement ps;
+            ResultSet rs;
             switch (p.getProcedura()) {
                 case citeste:
-                    List<Parinte> result = run.query(con,
-                            "SELECT id,nume,prenume,email from parinti",
-                            new BeanListHandler<Parinte>(Parinte.class));
-
+                    List<Parinte> result = new ArrayList<>();
+                    sql = "SELECT id,nume,prenume,email from parinti";
+                    rs = stmt.executeQuery(sql);
+                    while (rs.next()) {
+                        Parinte pr = new Parinte();
+                        pr.setId(rs.getInt("id"));
+                        pr.setNume(rs.getString("nume"));
+                        pr.setPrenume(rs.getString("prenume"));
+                        pr.setEmail(rs.getString("email"));
+                        result.add(pr);
+                    }
                     return result;
 
                 case stergere:
-                    if (run.update(con, "DELETE FROM parinti where id = ?", p.getId()) != 1)
+                    sql = "DELETE FROM parinti where id = ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setInt(1, p.getId());
+                    if (1 != ps.executeUpdate())
                         p.setEroare("A aparut o eroare");
                     break;
                 case adaugare:
                     p.setEroare(check(p));
                     if (p.getEroare().equals("")) {
-                        if (run.update(con, "INSERT INTO parinti (nume,prenume,email,parola,telefon) VALUES (?,?,?,?,?)",
-                                p.getNume(), p.getPrenume(), p.getEmail(), parola(p.getParola()), p.getTelefon()) != 1)
+
+                        sql = "INSERT INTO parinti (nume,prenume,email,parola,telefon) VALUES (?,?,?,?,?)";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, p.getNume());
+                        ps.setString(2, p.getPrenume());
+                        ps.setString(3, p.getEmail());
+                        ps.setString(4, parola(p.getParola()));
+                        ps.setString(5, p.getTelefon());
+                        if (1 != ps.executeUpdate())
                             p.setEroare("A aparut o eroare");
-                        else
-                            p = run.query(con, "SELECT id,nume,prenume,email,telefon FROM parinti WHERE email= ? ",
-                                    new BeanHandler<Parinte>(Parinte.class),
-                                    p.getEmail());
+                        else {
+                            sql = "SELECT id,nume,prenume,email,telefon FROM parinti WHERE email= ? ";
+                            ps = con.prepareStatement(sql);
+                            ps.setString(1, p.getEmail());
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                p = new Parinte();
+                                p.setId(rs.getInt("id"));
+                                p.setNume(rs.getString("nume"));
+                                p.setPrenume(rs.getString("prenume"));
+                                p.setEmail(rs.getString("email"));
+                                p.setTelefon(rs.getString("telefon"));
+
+                            }
+                        }
+
                     }
 
                     break;
                 case modificare:
                     p.setEroare(check(p));
                     if (p.getEroare().equals("")) {
-                        if (run.update(con, "UPDATE parinti SET nume= ?,prenume = ?,email =  ?,parola= ?, telefon= ? WHERE id = ?",
-                                p.getNume(), p.getPrenume(), p.getEmail(), parola(p.getParola()), p.getTelefon(), p.getId()) != 1)
+                        sql = "UPDATE parinti SET nume= ?,prenume = ?,email =  ?,parola= ?, telefon= ? WHERE id = ?";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, p.getNume());
+                        ps.setString(2, p.getPrenume());
+                        ps.setString(3, p.getEmail());
+                        ps.setString(4, parola(p.getParola()));
+                        ps.setString(5, p.getTelefon());
+                        ps.setInt(6, p.getId());
+
+                        if (1 != ps.executeUpdate())
                             p.setEroare("A aparut o eroare");
                         break;
 
                     }
             }
-            DbUtils.close(con);
+
         } catch (SQLException e) {
             System.out.println(e);
             // Mysql error Duplicate entry
