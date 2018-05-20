@@ -35,8 +35,6 @@ public class AdministrareController implements Initializable {
 
     @FXML
     private FlowPane loading;
-    @FXML
-    private FlowPane loaded;
 
     @FXML
     private TabPane meniu;

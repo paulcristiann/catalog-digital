@@ -1,82 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane pickOnBounds="false" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.AdministrareController">
+<AnchorPane pickOnBounds="false" prefHeight="1027.0" prefWidth="1602.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.AdministrareController">
     <children>
+          <TabPane fx:id="meniu" prefHeight="950.0" prefWidth="1602.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="77.0">
+              <tabs>
+                  <Tab fx:id="tabPreaviz" text="Preaviz de exmatriculare">
+                      <content>
+                          <fx:include fx:id="includePreaviz" source="Preaviz.fxml" />
+                      </content>
+                  </Tab>
+                  <Tab fx:id="tabProfesori" text="Profesori">
+                      <content>
+                          <fx:include fx:id="includeProfesori" source="Profesori.fxml" />
+                      </content>
+                  </Tab>
+                  <Tab fx:id="tabClase" text="Clase">
+                      <content>
+                          <fx:include fx:id="includeClase" source="Clase.fxml" />
+                      </content>
+                  </Tab>
+                  <Tab fx:id="tabElevi" text="Elevi">
+                      <content>
+                          <fx:include fx:id="includeElevi" source="Elevi.fxml" />
+                      </content>
+                  </Tab>
+                  <Tab fx:id="tabMaterii" text="Materii">
+                      <content>
+                          <fx:include fx:id="includeMaterii" source="Materii.fxml" />
+                      </content>
+                  </Tab> <Tab fx:id="tabCPM" text="CPM">
+                      <content>
+                          <fx:include fx:id="includeCPM" source="CPM.fxml" />
+                      </content>
+                  </Tab>
+                  <Tab fx:id="tabParinti" text="Parinti">
+                      <content>
+                          <fx:include fx:id="includeParinti" source="Parinti.fxml" />
+                      </content>
+                  </Tab>
+                  <Tab fx:id="tabSemestru" text="Semestru">
+                      <content>
+                          <fx:include fx:id="includeSemestru" source="Semestru.fxml" />
+                      </content>
+                  </Tab>
+                  <Tab fx:id="tabArhivare" text="Arhivare">
+                      <content>
+                          <fx:include fx:id="includeArhivare" source="Arhivare.fxml" />
+                      </content>
+                  </Tab>
+                  <Tab onSelectionChanged="#logout" text="Logout" />
 
-              <FlowPane fx:id="loaded" pickOnBounds="false" prefHeight="876.0" prefWidth="1341.0" prefWrapLength="1600.0" style="-fx-background-color: #f2f2f2;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-16.0" AnchorPane.topAnchor="0.0">
-            <children>
-            <AnchorPane prefHeight="876.0" prefWidth="1350.0">
-               <children>
-                  <Label alignment="CENTER" text="Interfață de administrare catalog digital" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
-                     <font>
-                        <Font name="Avenir Roman" size="34.0" />
-                     </font>
-                  </Label>
-                      <TabPane fx:id="meniu" layoutY="101.0" prefHeight="799.0" prefWidth="1601.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                          <tabs>
-                              <Tab fx:id="tabPreaviz" text="Preaviz de exmatriculare">
-                                  <content>
-                                      <fx:include fx:id="includePreaviz" source="Preaviz.fxml" />
-                                  </content>
-                              </Tab>
-                              <Tab fx:id="tabProfesori" text="Profesori">
-                                  <content>
-                                      <fx:include fx:id="includeProfesori" source="Profesori.fxml" />
-                                  </content>
-                              </Tab>
-                              <Tab fx:id="tabClase" text="Clase">
-                                  <content>
-                                      <fx:include fx:id="includeClase" source="Clase.fxml" />
-                                  </content>
-                              </Tab>
-                              <Tab fx:id="tabElevi" text="Elevi">
-                                  <content>
-                                      <fx:include fx:id="includeElevi" source="Elevi.fxml" />
-                                  </content>
-                              </Tab>
-                              <Tab fx:id="tabMaterii" text="Materii">
-                                  <content>
-                                      <fx:include fx:id="includeMaterii" source="Materii.fxml" />
-                                  </content>
-                              </Tab> <Tab fx:id="tabCPM" text="CPM">
-                                  <content>
-                                      <fx:include fx:id="includeCPM" source="CPM.fxml" />
-                                  </content>
-                              </Tab>
-                              <Tab fx:id="tabParinti" text="Parinti">
-                                  <content>
-                                      <fx:include fx:id="includeParinti" source="Parinti.fxml" />
-                                  </content>
-                              </Tab>
-                              <Tab fx:id="tabSemestru" text="Semestru">
-                                  <content>
-                                      <fx:include fx:id="includeSemestru" source="Semestru.fxml" />
-                                  </content>
-                              </Tab>
-                              <Tab fx:id="tabArhivare" text="Arhivare">
-                                  <content>
-                                      <fx:include fx:id="includeArhivare" source="Arhivare.fxml" />
-                                  </content>
-                              </Tab>
-                              <Tab onSelectionChanged="#logout" text="Logout" />
-      
                                 </tabs>
-                      </TabPane>
-               </children>
-               <FlowPane.margin>
-                  <Insets />
-               </FlowPane.margin>
-            </AnchorPane>
-            </children>
-        </FlowPane>
-        <FlowPane id="loading" fx:id="loading" layoutY="1.0" pickOnBounds="false" prefHeight="898.0" prefWidth="1462.0" prefWrapLength="1600.0" stylesheets="@loading.css" AnchorPane.bottomAnchor="-23.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="1.0">
-         </FlowPane>
+          </TabPane>
+      <Label alignment="CENTER" text="Interfață de administrare catalog digital" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font name="Avenir Roman" size="34.0" />
+         </font>
+      </Label>
+      <FlowPane fx:id="loading" prefHeight="1029.0" prefWidth="1603.0" stylesheets="@loading.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
    <rotationAxis>
       <Point3D />
