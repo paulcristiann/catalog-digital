@@ -16,7 +16,7 @@ public class PopUpController implements ModalWindow {
     public void setData(Object o) {
         Nota n = (Nota) o;
         if(n.getValoare() == 100)
-            status.setText("Nota adaugata cu succes!");
+            status.setText("Modificare efectuata cu succes!");
         else
             status.setText("Eroare la adaugarea notei sau elevul are deja o teza notata!");
         System.out.println("Metoda implementata");
