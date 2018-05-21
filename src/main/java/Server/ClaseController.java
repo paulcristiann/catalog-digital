@@ -33,6 +33,7 @@ public class ClaseController {
                         ac.setId(rs.getInt("id"));
                         ac.setId_diriginte(rs.getInt("id_diriginte"));
                         ac.setNume(rs.getString("nume"));
+                        ac.setDiriginte(rs.getString("diriginte"));
                         result.add(ac);
                     }
 
@@ -62,6 +63,7 @@ public class ClaseController {
                                 c.setId(rs.getInt("id"));
                                 c.setId_diriginte(rs.getInt("id_diriginte"));
                                 c.setNume(rs.getString("nume"));
+                                c.setDiriginte(rs.getString("diriginte"));
 
                             }
                         }
@@ -95,6 +97,7 @@ public class ClaseController {
                                 c = new adminClasa();
                                 c.setId(rs.getInt("id"));
                                 c.setNume(rs.getString("nume"));
+                                c.setDiriginte(rs.getString("diriginte"));
                                 c.setId_diriginte(rs.getInt("id_diriginte"));
                             }
                         }
