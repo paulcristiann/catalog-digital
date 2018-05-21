@@ -1,5 +1,7 @@
 package model;
 
+import com.mysql.jdbc.log.Log;
+
 import java.io.Serializable;
 
 public class Nota extends Logged implements Serializable {
@@ -29,9 +31,14 @@ public class Nota extends Logged implements Serializable {
 
     private int id;
 
-    public enum Actiuni {create, read, update, delete, teza, readAbsente, motiveazaAbsente};
+    public enum Actiuni {create, read, update, delete, teza, readAbsente, motiveazaAbsente, readNoteMaterie, returnCPM};
 
     private Nota.Actiuni actiune;
+
+    public Nota(Login pl,Clasa cd){
+        profesor = pl;
+        clasa = cd;
+    }
 
     public Nota(int nr) {
 

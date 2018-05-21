@@ -45,6 +45,38 @@ public class NotaController {
                     }
                     return note;
 
+                case readNoteMaterie:
+                    List<Nota> note2 = new ArrayList<>();
+                    PreparedStatement pstmt2;
+                    ResultSet rset2;
+                    pstmt2 = con.prepareStatement("SELECT nota from note where id_elev=? AND " +
+                            "id_clasa_profesor_materie=?");
+                    pstmt2.setInt(1,n.getElev().getId());
+                    pstmt2.setInt(2,n.getCpm());
+                    rset2 = pstmt2.executeQuery();
+                    while(rset2.next())
+                    {
+                        if(rset2.getInt("nota") != 0 && rset2.getInt("nota") != -1)
+                            note2.add(new Nota(rset2.getInt("nota")));
+                    }
+                    return note2;
+
+                case returnCPM:
+
+                    PreparedStatement pstmt3;
+                    ResultSet rset3;
+                    pstmt3 = con.prepareStatement("SELECT id from clasa_profesor_materie where id_profesor=? AND " +
+                            "id_clasa=?");
+                    pstmt3.setInt(1,n.getProfesor().getId());
+                    pstmt3.setInt(2,n.getClasa().getId());
+                    rset3 = pstmt3.executeQuery();
+                    Nota x = new Nota(-500);
+                    while(rset3.next())
+                    {
+                        x.setCpm(rset3.getInt("id"));
+                    }
+                    return x;
+
                 case update:
                     break;
 

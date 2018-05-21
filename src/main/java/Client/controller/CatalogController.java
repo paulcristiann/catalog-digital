@@ -87,6 +87,12 @@ public class CatalogController implements Initializable {
         this.main = application;
         clasa.setText(clasaDeschisa.toString() + ", materia: " + clasaDeschisa.getMat().getNume() + " (Semestrul "
                 + SemestruController.getSemestrulCurent() + ")");
+
+        if(clasaDeschisa.getId_diriginte() == profesorLogat.getId())
+            clasaDeschisa.seteDiriginte(true);
+        else
+            clasaDeschisa.seteDiriginte(false);
+
         if(clasaDeschisa.geteDiriginte()){
 
             prof.setText(profesorLogat.getUser() + ". Sunteti diriginte, puteti motiva absente.");
@@ -180,10 +186,17 @@ public class CatalogController implements Initializable {
                     Thread.sleep(100);
 
                     data = FXCollections.observableArrayList((List<Elev>) new Send().send(e));
+
+                    Nota nCPM = new Nota(profesorLogat,clasaDeschisa);
+                    nCPM.setActiune(Nota.Actiuni.returnCPM);
+
                     for(Elev i:data){
 
                         Nota deTrimis = new Nota(i);
-                        deTrimis.setActiune(Nota.Actiuni.read);
+                        deTrimis.setActiune(Nota.Actiuni.readNoteMaterie);
+                        Nota aux = (Nota) new Send().send(nCPM);
+                        deTrimis.setCpm(aux.getCpm());
+
                         List<Nota> not = (List<Nota>) new Send().send(deTrimis);
                         i.setNote(not.toString());
                         if(not.size() >= 2) {
