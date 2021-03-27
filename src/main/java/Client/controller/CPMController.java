@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Send;
+import Client.aspects.Loggable;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,6 +76,7 @@ public class CPMController {
     }
 
 
+    @Loggable
     public void start() {
         clasa.setCellValueFactory(new PropertyValueFactory<CPM, String>("numeClasa"));
         profesor.setCellValueFactory(new PropertyValueFactory<CPM, String>("numeProfesor"));
@@ -102,6 +104,7 @@ public class CPMController {
     }
 
     @FXML
+    @Loggable
     private void add(ActionEvent event) {
         mesaj.setText("");
         CPM cpm = new CPM();
@@ -141,6 +144,7 @@ public class CPMController {
 
 
     @FXML
+    @Loggable
     private void delete(ActionEvent event) {
         mesaj.setText("");
         if (inEditare != null) {

@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Send;
+import Client.aspects.Loggable;
 import Client.interfaces.ModalWindow;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -22,6 +23,7 @@ public class NoteazaElev implements ModalWindow {
     private Elev elev;
     private Login profesor;
 
+    @Loggable
     public boolean add(){
 
         System.out.println("Nota trebuie adaugata!");
@@ -67,6 +69,7 @@ public class NoteazaElev implements ModalWindow {
 
 
     @Override
+    @Loggable
     public void setData(Object o) {
 
         Elev e = (Elev) o;

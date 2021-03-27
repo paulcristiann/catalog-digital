@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Send;
+import Client.aspects.Loggable;
 import Client.interfaces.ModalWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +29,7 @@ public class InlocuireProfesor implements ModalWindow {
     private Profesor p;
 
     @Override
+    @Loggable
     public void setData(Object o) {
         p = (Profesor) o;
         mesaj.setText("Pentru a putea sterge profesorul " + p.getNume() + " " + p.getPrenume() +
@@ -46,6 +48,7 @@ public class InlocuireProfesor implements ModalWindow {
     }
 
     @FXML
+    @Loggable
     private void sterge(ActionEvent ae) {
         if (inlocuitor.getValue() == null) {
             err.setText("Selectati un inlocuitor");
@@ -69,6 +72,7 @@ public class InlocuireProfesor implements ModalWindow {
     }
 
     @FXML
+    @Loggable
     private void inlocuieste(ActionEvent ae) {
         if (inlocuitor.getValue() == null) {
             err.setText("Selectati un inlocuitor");

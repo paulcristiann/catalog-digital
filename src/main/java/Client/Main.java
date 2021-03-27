@@ -1,5 +1,6 @@
 package Client;
 
+import Client.aspects.Loggable;
 import Client.controller.AdministrareController;
 import Client.controller.AlegeClasaController;
 import Client.controller.CatalogController;
@@ -44,6 +45,7 @@ public class Main extends Application {
         Application.launch(Main.class);
     }
 
+    @Loggable
     public boolean userLogging(String user, String password, Boolean administrare) {
         Login l = new Login(user, password);
         l.setAdministrare(administrare);

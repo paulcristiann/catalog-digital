@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Send;
+import Client.aspects.Loggable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -73,6 +74,7 @@ public class ClaseController implements Initializable {
         fdiriginte.setItems(profesori);
     }
 
+    @Loggable
     @FXML
     private void add(ActionEvent event) {
         mesaj.setText("");
@@ -123,6 +125,7 @@ public class ClaseController implements Initializable {
     }
 
     @FXML
+    @Loggable
     private void delete(ActionEvent event) {
         mesaj.setText("");
         if (inEditare != null) {

@@ -11,8 +11,8 @@ public class db {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            con = DriverManager.getConnection("jdbc:mysql://tihenea.tk/catalog?" +
-                    "user=proiectmds&password=proiectmds123&verifyServerCertificate=true&useSSL=true");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/catalog?" +
+                    "user=root&password=1qaz!QAZ&verifyServerCertificate=false&useSSL=false");
 
         } catch (Exception e) {
             System.out.println(e);

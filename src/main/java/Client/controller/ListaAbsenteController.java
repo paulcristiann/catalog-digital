@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Send;
+import Client.aspects.Loggable;
 import Client.interfaces.ModalWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +27,7 @@ public class ListaAbsenteController implements ModalWindow {
     private TableColumn<ListaAbsente, String> data;
 
     @Override
+    @Loggable
     public void setData(Object o) {
 
         materie.setMinWidth(100);

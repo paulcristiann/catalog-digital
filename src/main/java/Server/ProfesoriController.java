@@ -53,8 +53,9 @@ public class ProfesoriController {
                         ps.setString(2, p.getPrenume());
                         ps.setString(3, p.getEmail());
                         ps.setString(4, parola(p.getParola()));
-                        if (1 != ps.executeUpdate())
+                        if (1 != ps.executeUpdate()) {
                             p.setEroare("A aparut o eroare");
+                        }
                         else {
                             sql = "SELECT id,nume,prenume,email FROM profesori WHERE email= ? ";
                             ps = con.prepareStatement(sql);

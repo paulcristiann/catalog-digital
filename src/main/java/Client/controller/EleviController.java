@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Send;
+import Client.aspects.Loggable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -97,6 +98,7 @@ public class EleviController implements Initializable{
         citeste();
     }
 
+    @Loggable
     private void citeste() {
         Elevi e = new Elevi();
         e.setProcedura(Elevi.Proceduri.citeste);
@@ -113,6 +115,7 @@ public class EleviController implements Initializable{
     }
 
     @FXML
+    @Loggable
     private void adaugare(ActionEvent event) {
 
         mesaj.setText("");
@@ -145,7 +148,9 @@ public class EleviController implements Initializable{
             mesaj.setText(e.getEroare());
         }
     }
+
     @FXML
+    @Loggable
     private void modificare(ActionEvent event) {
 
         mesaj.setText("");
@@ -186,6 +191,7 @@ public class EleviController implements Initializable{
     }
 
     @FXML
+    @Loggable
     private void stergere(ActionEvent event) {
 
         mesaj.setText("");
