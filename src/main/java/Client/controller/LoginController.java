@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Main;
+import Client.aspects.Loggable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,6 +47,7 @@ public class LoginController implements Initializable {
         error.setText("");
     }
 
+    @Loggable
     public void login(ActionEvent event) {
         if (main != null) {
             if (!main.userLogging(user.getText(), password.getText(), administrare)) {

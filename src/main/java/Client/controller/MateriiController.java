@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Send;
+import Client.aspects.Loggable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,6 +49,8 @@ public class MateriiController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
+
+    @Loggable
     public void start(){
         materie.setCellValueFactory(new PropertyValueFactory<Materie, String>("nume"));
         Materie m = new Materie();
@@ -57,6 +60,7 @@ public class MateriiController implements Initializable {
     }
 
     @FXML
+    @Loggable
     private void add(ActionEvent event) {
         mesaj.setText("");
         Materie m = new Materie(fMaterie.getText());
@@ -70,6 +74,7 @@ public class MateriiController implements Initializable {
     }
 
     @FXML
+    @Loggable
     private void update(ActionEvent event) {
         mesaj.setText("");
         if (inEditare != null) {
@@ -90,6 +95,7 @@ public class MateriiController implements Initializable {
     }
 
     @FXML
+    @Loggable
     private void delete(ActionEvent event) {
         mesaj.setText("");
         if (inEditare != null) {

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Catalog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<br>
+<br>
+<div class="container">
+    <br>
+    <a href="logout" class="btn btn-success" role="button">Logout</a>
+    <th:block th:each="elev : ${elevi}">
+        <br>
+        <br>
+        <h3 th:text="${elev.nume}"/>
+        <br>
+        <h4>Semestrul I</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Materie</th>
+                <th>Note</th>
+                <th>Teza</th>
+                <th>Medie</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="note : ${elev.semestrul1}">
+                <tr>
+                    <td th:text="${note.getNume()}"></td>
+                    <td th:utext="${note.getNote()}"></td>
+                    <td th:text="${note.getTeza()}"></td>
+                    <td th:text="${note.getMedie()}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+        <h4>Semestrul II</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Materie</th>
+                <th>Note</th>
+                <th>Teza</th>
+                <th>Medie</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="note : ${elev.semestrul2}">
+                <tr>
+                    <td th:text="${note.getNume()}"></td>
+                    <td th:utext="${note.getNote()}"></td>
+                    <td th:text="${note.getTeza()}"></td>
+                    <td th:text="${note.getMedie()}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </th:block>
+</div>
+
+
+</body>
+</html>

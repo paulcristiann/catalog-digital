@@ -2,6 +2,7 @@ package Client.controller;
 
 import Client.Main;
 import Client.Send;
+import Client.aspects.Loggable;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -117,6 +118,7 @@ public class CatalogController implements Initializable {
     }
 
 
+    @Loggable
     public void noteaza() {
 
         if(inEditare != null) {
@@ -164,6 +166,7 @@ public class CatalogController implements Initializable {
         }
     }
 
+    @Loggable
     public void updateCatalog(){
         nume.setMinWidth(100);
         prenume.setMinWidth(100);

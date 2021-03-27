@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.EleviController">
+
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+        <TableView fx:id="table" editable="true" onMouseClicked="#Mouse">
+            <columns>
+                <TableColumn fx:id="nume" prefWidth="75.0" text="Nume">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="firstNameCol" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="prenume" prefWidth="75.0" text="Prenume">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="lastNameCol" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="email" prefWidth="75.0" text="Email">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="emailCol" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="clasa" prefWidth="75.0" text="Clasa">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="clasaCol" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="parinte" prefWidth="75.0" text="Parinte">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="parinteCol" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+        <AnchorPane prefHeight="196.0" prefWidth="470.0">
+            <children>
+                <TextField fx:id="fNume" layoutX="22.0" layoutY="25.0" prefHeight="25.0" prefWidth="101.0" promptText="Nume" AnchorPane.topAnchor="15.0" />
+                <TextField fx:id="fPrenume" layoutX="134.0" layoutY="25.0" prefHeight="25.0" prefWidth="89.0" promptText="Prenume" AnchorPane.topAnchor="15.0" />
+                <TextField fx:id="fEmail" layoutX="247.0" layoutY="14.0" prefHeight="35.0" prefWidth="154.0" promptText="Email" AnchorPane.topAnchor="14.0" />
+                <PasswordField fx:id="fParola" layoutX="22.0" layoutY="74.0" promptText="parola" />
+                <Button fx:id="button" layoutX="201.0" layoutY="61.0" onAction="#adaugare" text="Add" AnchorPane.topAnchor="61.0" />
+                <Button layoutX="324.0" layoutY="61.0" mnemonicParsing="false" onAction="#modificare" text="Save" AnchorPane.topAnchor="61.0" />
+                <Button layoutX="256.0" layoutY="61.0" mnemonicParsing="false" onAction="#stergere" text="Delete" AnchorPane.topAnchor="61.0" />
+                <Label fx:id="mesaj" layoutX="32.0" layoutY="109.0" prefHeight="35.0" prefWidth="431.0" />
+                <ComboBox fx:id="fClasa" layoutX="413.0" layoutY="29.0" prefWidth="150.0" />
+                <ComboBox fx:id="fParinte" layoutX="600.0" layoutY="29.0" prefWidth="150.0" />
+
+            </children>
+            <padding>
+                <Insets bottom="15.0" top="15.0" />
+            </padding>
+        </AnchorPane>
+
+    </VBox>
+
+</AnchorPane>

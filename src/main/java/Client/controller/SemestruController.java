@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Send;
+import Client.aspects.Loggable;
 import Server.ParintiWebController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -28,6 +29,8 @@ public class SemestruController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
+    @Loggable
     public void start() {
 
         if (getSemestrulCurent() == 1) {
@@ -39,11 +42,13 @@ public class SemestruController implements Initializable {
 
     }
 
+    @Loggable
     public void comutaSem() {
         setSemestrulCurent(2);
         start();
     }
 
+    @Loggable
     private void setSemestrulCurent(int semestru) {
         Semestru s = new Semestru();
         s.setGet(false);
@@ -51,6 +56,7 @@ public class SemestruController implements Initializable {
         Send.send(s);
     }
 
+    @Loggable
     public static int getSemestrulCurent() {
         Semestru s = (Semestru) Send.send(new Semestru());
         return s.getSemestru();

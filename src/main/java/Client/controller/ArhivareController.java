@@ -3,6 +3,7 @@ package Client.controller;
 
 import Client.Main;
 import Client.Send;
+import Client.aspects.Loggable;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 import model.Arhiva;
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 public class ArhivareController {
     @FXML
+    @Loggable
     public void arhiva() {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showSaveDialog(Main.getStage());

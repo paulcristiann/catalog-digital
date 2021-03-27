@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Main;
+import Client.aspects.Loggable;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -49,6 +50,7 @@ public class AdministrareController implements Initializable {
     }
 
     @Override
+    @Loggable
     public void initialize(URL location, ResourceBundle resources) {
         meniu.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Tab>() {

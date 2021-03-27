@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Catalog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <style type="text/css">
+        .note{
+            border: 1px solid #d4f3a1;
+            padding: 5px;
+            background: #f2f2f2;
+            width:250px;
+        }
+        #note{
+            width:100%;
+            align-content: center;
+            padding-top: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+<br>
+<br>
+<div class="container">
+    <br>
+    <a href="logout" class="btn btn-success" role="button">Logout</a>
+    <h3 th:text="${elev.nume}"/>
+    <br>
+    <h4>Semestrul I</h4>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Materie</th>
+            <th>Note</th>
+            <th>Teza</th>
+            <th>Medie</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="note : ${elev.semestrul1}">
+
+            <tr th:nume="${note.getNume()}" th:teza="${note.getTeza()}" th:suma-note="${note.getSumaNote()}"
+                th:numar-note="${note.getNrNote()}">
+
+                <td th:text="${note.getNume()}"></td>
+                <td th:utext="${note.getNote()}"></td>
+                <td th:text="${note.Teza()}"></td>
+                <td th:text="${note.getMedie()}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <h4>Semestrul II</h4>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Materie</th>
+            <th>Note</th>
+            <th>Teza</th>
+            <th>Medie</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="note : ${elev.semestrul2}">
+
+            <tr th:nume="${note.getNume()}" th:teza="${note.getTeza()}" th:suma-note="${note.getSumaNote()}"
+                th:numar-note="${note.getNrNote()}">
+
+                <td th:text="${note.getNume()}"></td>
+                <td th:utext="${note.getNote()}"></td>
+                <td th:text="${note.Teza()}"></td>
+                <td th:text="${note.getMedie()}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Medie</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="medie"></p>
+                    <div class="form-group">
+                        <label for="nrNote">Cate note credti ca veti mai obtine</label>
+                        <input type="text" class="form-control" id="nrNote">
+                    </div>
+                    <div class="form-group" id="formTeza">
+                        <label for="teza">Nota teza</label>
+                        <input type="text" class="form-control" id="teza">
+                    </div>
+                    <button type="button" id="calculeaza" class="btn btn-default">Calculeaza</button>
+                    <div id="note"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

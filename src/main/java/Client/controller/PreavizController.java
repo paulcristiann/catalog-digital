@@ -2,6 +2,7 @@ package Client.controller;
 
 import Client.ModalWindow;
 import Client.Send;
+import Client.aspects.Loggable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -45,6 +46,7 @@ public class PreavizController implements Client.interfaces.ModalWindow{
     }
 
     @Override
+    @Loggable
     public void setData(Object o) {
 
         nume.setMinWidth(100);
@@ -61,6 +63,8 @@ public class PreavizController implements Client.interfaces.ModalWindow{
 
 
     }
+
+    @Loggable
     public void start(){
 
         nume.setMinWidth(100);
