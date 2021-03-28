@@ -1,7 +1,5 @@
 package model;
 
-import com.mysql.jdbc.log.Log;
-
 import java.io.Serializable;
 
 public class Nota extends Logged implements Serializable {

@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Send;
+import Client.aspects.Loggable;
 import Client.interfaces.ModalWindow;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Label;
@@ -14,6 +15,7 @@ public class AbsentaController implements ModalWindow {
 
     private Elev elev;
 
+    @Loggable
     public void puneAbsenta(){
         Nota n = new Nota(-1);
         n.setActiune(Nota.Actiuni.create);

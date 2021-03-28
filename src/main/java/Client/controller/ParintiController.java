@@ -1,5 +1,6 @@
 package Client.controller;
 
+import Client.aspects.Loggable;
 import javafx.fxml.Initializable;
 import Client.ModalWindow;
 import Client.Send;
@@ -63,6 +64,7 @@ public class ParintiController implements Initializable {
 
     }
 
+    @Loggable
     public void start(){
 
         nume.setMinWidth(100);
@@ -79,6 +81,7 @@ public class ParintiController implements Initializable {
         citeste();
     }
 
+    @Loggable
     private void citeste() {
         Parinte p = new Parinte();
         p.setProcedura(Parinte.Proceduri.citeste);
@@ -88,6 +91,7 @@ public class ParintiController implements Initializable {
     }
 
     @FXML
+    @Loggable
     private void adaugare(ActionEvent event) {
 
         mesaj.setText("");
@@ -104,6 +108,7 @@ public class ParintiController implements Initializable {
     }
 
     @FXML
+    @Loggable
     private void modificare(ActionEvent event) {
 
         mesaj.setText("");
@@ -125,6 +130,7 @@ public class ParintiController implements Initializable {
     }
 
     @FXML
+    @Loggable
     private void stergere(ActionEvent event) {
 
         mesaj.setText("");

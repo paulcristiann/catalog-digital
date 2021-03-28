@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Send;
+import Client.aspects.Loggable;
 import Client.interfaces.ModalWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,7 @@ public class MotiveazaController implements ModalWindow {
     private Elev elev;
 
     @Override
+    @Loggable
     public void setData(Object o) {
 
         Elev e = (Elev) o;
@@ -44,6 +46,7 @@ public class MotiveazaController implements ModalWindow {
     }
 
     @FXML
+    @Loggable
     private void motiveazaAbsente(){
 
         ObservableList<Nota> absente = campAbsente.getSelectionModel().getSelectedItems();
